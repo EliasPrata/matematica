@@ -1,0 +1,2928 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matemática em Ação: Aprender, Observar e Superar</title>
+  <!-- Fontes arredondadas e amigáveis para o público infantojuvenil -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       STYLE.CSS — IDENTIDADE VISUAL, VARIÁVEIS E ANIMAÇÕES
+       Matemática em Ação: Aprender, Observar e Superar
+       ========================================================================== */
+    :root {
+      --bg-sky: #e0f2fe;
+      --bg-soft: #f8fafc;
+      --card-bg: #ffffff;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #f59e0b;
+      --secondary-dark: #d97706;
+      --success: #10b981;
+      --success-dark: #059669;
+      --danger: #ef4444;
+      --danger-dark: #dc2626;
+      --purple: #7c3aed;
+      --purple-dark: #6d28d9;
+      --coral: #f97316;
+      --text-main: #1e293b;
+      --text-muted: #64748b;
+      --border-soft: #cbd5e1;
+      --shadow-sm: 0 4px 6px -1px rgba(15, 23, 42, 0.08);
+      --shadow-md: 0 10px 20px -5px rgba(15, 23, 42, 0.12);
+      --shadow-lg: 0 20px 35px -8px rgba(15, 23, 42, 0.18);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+      --font-display: 'Fredoka', 'Nunito', system-ui, -apple-system, sans-serif;
+      --font-body: 'Nunito', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: linear-gradient(135deg, #dbeafe 0%, #fef3c7 50%, #dcfce7 100%);
+      background-attachment: fixed;
+      color: var(--text-main);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    h1, h2, h3, h4, .font-display {
+      font-family: var(--font-display);
+      letter-spacing: 0.01em;
+    }
+
+    /* Botões 3D Divertidos */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 12px 22px;
+      border: none;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+      text-decoration: none;
+      user-select: none;
+    }
+
+    .btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      filter: brightness(1.04);
+    }
+
+    .btn:active:not(:disabled) {
+      transform: translateY(2px);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: linear-gradient(180deg, #3b82f6 0%, #2563eb 100%);
+      color: #fff;
+      box-shadow: 0 5px 0 var(--primary-dark), var(--shadow-sm);
+    }
+
+    .btn-secondary {
+      background: linear-gradient(180deg, #fbbf24 0%, #f59e0b 100%);
+      color: #1e293b;
+      box-shadow: 0 5px 0 var(--secondary-dark), var(--shadow-sm);
+    }
+
+    .btn-success {
+      background: linear-gradient(180deg, #34d399 0%, #10b981 100%);
+      color: #fff;
+      box-shadow: 0 5px 0 var(--success-dark), var(--shadow-sm);
+    }
+
+    .btn-purple {
+      background: linear-gradient(180deg, #8b5cf6 0%, #7c3aed 100%);
+      color: #fff;
+      box-shadow: 0 5px 0 var(--purple-dark), var(--shadow-sm);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--primary);
+      border: 2px solid #bfdbfe;
+      box-shadow: 0 4px 0 #cbd5e1;
+    }
+
+    .btn-sm {
+      padding: 8px 14px;
+      font-size: 0.9rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .btn-lg {
+      padding: 15px 30px;
+      font-size: 1.15rem;
+    }
+
+    /* Cabeçalho Superior */
+    .topbar {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 3px solid #bfdbfe;
+      padding: 10px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+    }
+
+    .brand-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      line-height: 1.1;
+    }
+
+    .brand-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    /* Container Principal */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 20px 16px 48px;
+    }
+
+    .screen {
+      display: none;
+      animation: fadeSlideUp 0.4s ease forwards;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeSlideUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ==========================================================================
+       TELA INICIAL (LOBBY & CONFIGURAÇÃO)
+       ========================================================================== */
+    .hero-card {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      box-shadow: var(--shadow-lg);
+      border: 4px solid #93c5fd;
+      text-align: center;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: #fef3c7;
+      color: #b45309;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 2px solid #fcd34d;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: #1e3a8a;
+      margin-bottom: 10px;
+      line-height: 1.15;
+    }
+
+    .hero-desc {
+      max-width: 760px;
+      margin: 0 auto 24px;
+      color: #475569;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
+    /* Pilares de Albert Bandura */
+    .bandura-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 14px;
+      margin: 24px 0;
+      text-align: left;
+    }
+
+    .bandura-step {
+      background: #f8fafc;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      border: 2px solid #e2e8f0;
+      transition: transform 0.2s ease;
+    }
+
+    .bandura-step:hover {
+      transform: translateY(-3px);
+    }
+
+    .bandura-step-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .bandura-num {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+
+    /* Seleção de Modo de Jogo */
+    .modes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .mode-card {
+      background: #ffffff;
+      border: 3px solid #cbd5e1;
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+      position: relative;
+    }
+
+    .mode-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .mode-card.selected {
+      border-color: var(--primary);
+      background: #eff6ff;
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.18);
+    }
+
+    .mode-icon {
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .setup-panel {
+      background: #f1f5f9;
+      border-radius: var(--radius-md);
+      padding: 20px;
+      margin-top: 22px;
+      border: 2px dashed #94a3b8;
+      text-align: left;
+    }
+
+    .players-inputs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .player-input-box {
+      background: #fff;
+      padding: 12px;
+      border-radius: var(--radius-sm);
+      border: 2px solid #cbd5e1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .player-input-box input, .player-input-box select {
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 2px solid #cbd5e1;
+      font-family: var(--font-body);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    /* ==========================================================================
+       TELA DO TABULEIRO INTERATIVO
+       ========================================================================== */
+    .game-layout {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .game-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .board-wrapper {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      box-shadow: var(--shadow-md);
+      border: 4px solid #93c5fd;
+    }
+
+    .zones-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    .zone-pill {
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .zone-basic { background: #dcfce7; color: #166534; border: 2px solid #86efac; }
+    .zone-inter { background: #fef3c7; color: #92400e; border: 2px solid #fcd34d; }
+    .zone-adv { background: #f3e8ff; color: #6b21a8; border: 2px solid #d8b4fe; }
+
+    /* Grid Sinuoso do Tabuleiro (27 Casas + Largada + Chegada) */
+    .board-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+      gap: 12px;
+      position: relative;
+    }
+
+    @media (max-width: 520px) {
+      .board-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+    }
+
+    .tile {
+      min-height: 98px;
+      border-radius: var(--radius-md);
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      border: 3px solid transparent;
+      box-shadow: 0 4px 0 rgba(0, 0, 0, 0.08);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+
+    .tile:hover {
+      transform: translateY(-3px);
+    }
+
+    .tile.zone-1 { background: linear-gradient(180deg, #ecfdf5 0%, #d1fae5 100%); border-color: #34d399; }
+    .tile.zone-2 { background: linear-gradient(180deg, #fffbeb 0%, #fef3c7 100%); border-color: #fbbf24; }
+    .tile.zone-3 { background: linear-gradient(180deg, #faf5ff 0%, #f3e8ff 100%); border-color: #c084fc; }
+    .tile.tile-start { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #fff; border-color: #93c5fd; }
+    .tile.tile-finish { background: linear-gradient(135deg, #f59e0b, #ea580c); color: #fff; border-color: #fde047; }
+
+    .tile.active-tile {
+      box-shadow: 0 0 0 4px #2563eb, 0 8px 16px rgba(37, 99, 235, 0.3);
+      transform: scale(1.04);
+      z-index: 2;
+    }
+
+    .tile-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
+      font-size: 0.8rem;
+    }
+
+    .tile-num {
+      background: rgba(255, 255, 255, 0.85);
+      color: #0f172a;
+      padding: 2px 7px;
+      border-radius: 8px;
+      font-family: var(--font-display);
+    }
+
+    .tile-special-badge {
+      font-size: 0.95rem;
+    }
+
+    .tile-topic {
+      font-size: 0.72rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin: 4px 0;
+    }
+
+    .tile-pawns {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 4px;
+      min-height: 26px;
+    }
+
+    .pawn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      border: 2px solid #ffffff;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+      animation: bouncePawn 1.4s infinite ease-in-out;
+    }
+
+    @keyframes bouncePawn {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    /* Painel Lateral de Controle e Placar */
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .panel-card {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      box-shadow: var(--shadow-md);
+      border: 3px solid #cbd5e1;
+    }
+
+    .turn-banner {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: #fff;
+      padding: 14px;
+      border-radius: var(--radius-md);
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    /* Dado Animado */
+    .dice-area {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: #f8fafc;
+      border-radius: var(--radius-md);
+      border: 2px solid #e2e8f0;
+    }
+
+    .dice-box {
+      width: 74px;
+      height: 74px;
+      background: #ffffff;
+      border: 4px solid #2563eb;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1e3a8a;
+      box-shadow: 0 6px 0 #93c5fd;
+      transition: transform 0.3s ease;
+    }
+
+    .dice-box.rolling {
+      animation: diceRoll 0.55s ease-in-out;
+    }
+
+    @keyframes diceRoll {
+      0% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(90deg) scale(1.15); }
+      50% { transform: rotate(180deg) scale(0.95); }
+      75% { transform: rotate(270deg) scale(1.15); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+
+    /* Placar dos Jogadores */
+    .scoreboard-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .score-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+    }
+
+    .score-item.current-turn {
+      background: #eff6ff;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    }
+
+    .score-player-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .score-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #fff;
+      font-weight: bold;
+    }
+
+    /* Conquistas */
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .badge-item {
+      background: #f1f5f9;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      padding: 8px 4px;
+      text-align: center;
+      opacity: 0.45;
+      filter: grayscale(1);
+      transition: all 0.3s ease;
+    }
+
+    .badge-item.unlocked {
+      opacity: 1;
+      filter: grayscale(0);
+      background: #fefce8;
+      border-color: #facc15;
+      box-shadow: 0 4px 10px rgba(250, 204, 21, 0.25);
+      transform: scale(1.03);
+    }
+
+    .badge-emoji {
+      font-size: 1.5rem;
+      display: block;
+    }
+
+    .badge-name {
+      font-size: 0.68rem;
+      font-weight: 800;
+      line-height: 1.1;
+      margin-top: 4px;
+      color: #334155;
+    }
+
+    /* ==========================================================================
+       MODAL DE DESAFIO — OS 4 PROCESSOS DE ALBERT BANDURA
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.72);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 100;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+      animation: fadeIn 0.25s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .challenge-modal {
+      background: #ffffff;
+      width: 100%;
+      max-width: 780px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      border: 4px solid #60a5fa;
+      overflow: hidden;
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .challenge-header {
+      background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+      color: #fff;
+      padding: 16px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* Barra de Etapas de Bandura */
+    .bandura-stepper {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      background: #f1f5f9;
+      border-bottom: 2px solid #cbd5e1;
+    }
+
+    .step-tab {
+      padding: 10px 6px;
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #64748b;
+      border-bottom: 4px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .step-tab.active {
+      color: #1d4ed8;
+      background: #eff6ff;
+      border-bottom-color: #2563eb;
+    }
+
+    .step-tab.completed {
+      color: #059669;
+      border-bottom-color: #10b981;
+    }
+
+    .challenge-body {
+      padding: 22px;
+      overflow-y: auto;
+      flex: 1;
+    }
+
+    /* Lousa do Mentor (Atenção e Retenção) */
+    .mentor-box {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      background: #f0fdf4;
+      border: 3px solid #86efac;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    @media (max-width: 600px) {
+      .mentor-box {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+    }
+
+    .mentor-avatar {
+      width: 78px;
+      height: 78px;
+      flex-shrink: 0;
+    }
+
+    .chalkboard {
+      background: #1e293b;
+      color: #f8fafc;
+      border-radius: var(--radius-md);
+      padding: 18px;
+      border: 5px solid #92400e;
+      box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+      margin-bottom: 16px;
+    }
+
+    .chalk-title {
+      color: #fde047;
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .retention-step-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-left: 4px solid #38bdf8;
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-top: 10px;
+      animation: fadeSlideUp 0.3s ease;
+    }
+
+    /* Opções de Resposta (Reprodução) */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .option-btn {
+      background: #f8fafc;
+      border: 3px solid #cbd5e1;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #1e293b;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.18s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: #3b82f6;
+      background: #eff6ff;
+      transform: translateY(-2px);
+    }
+
+    .option-btn.correct {
+      background: #dcfce7;
+      border-color: #10b981;
+      color: #065f46;
+    }
+
+    .option-btn.wrong {
+      background: #fee2e2;
+      border-color: #ef4444;
+      color: #991b1b;
+    }
+
+    .option-letter {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      flex-shrink: 0;
+    }
+
+    .feedback-panel {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 3px solid;
+      animation: fadeSlideUp 0.3s ease;
+    }
+
+    .feedback-panel.success {
+      background: #ecfdf5;
+      border-color: #10b981;
+      color: #065f46;
+    }
+
+    .feedback-panel.error {
+      background: #fef2f2;
+      border-color: #ef4444;
+      color: #991b1b;
+    }
+
+    /* ==========================================================================
+       TELA FINAL ESPECIAL — HOMENAGEM DO DESENVOLVEDOR ELIAS PRATA DE SOUZA
+       ========================================================================== */
+    .final-screen-card {
+      background: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      box-shadow: var(--shadow-lg);
+      border: 4px solid #fbbf24;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 90;
+    }
+
+    .podium-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin: 22px 0 32px;
+    }
+
+    .podium-card {
+      background: linear-gradient(180deg, #eff6ff 0%, #dbeafe 100%);
+      border: 3px solid #60a5fa;
+      border-radius: var(--radius-md);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .podium-card.winner {
+      background: linear-gradient(180deg, #fef9c3 0%, #fde047 100%);
+      border-color: #eab308;
+      transform: scale(1.03);
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Seção da Homenagem do Desenvolvedor */
+    .dev-tribute-section {
+      background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f5f3ff 100%);
+      border: 3px solid #7dd3fc;
+      border-radius: var(--radius-lg);
+      padding: 28px 22px;
+      margin-top: 24px;
+      position: relative;
+    }
+
+    .dev-tribute-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 24px;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .dev-tribute-layout {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+    }
+
+    .dev-character-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: devEnter 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes devEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .dev-wave-arm {
+      transform-origin: 155px 155px;
+      animation: gentleWave 2.4s ease-in-out infinite;
+    }
+
+    @keyframes gentleWave {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(-10deg); }
+    }
+
+    .dev-speech-bubble {
+      background: #ffffff;
+      border: 3px solid #93c5fd;
+      border-radius: var(--radius-lg);
+      padding: 22px 24px;
+      position: relative;
+      box-shadow: var(--shadow-md);
+      text-align: left;
+    }
+
+    .dev-speech-bubble p {
+      font-size: 1.04rem;
+      color: #1e293b;
+      margin-bottom: 12px;
+      font-weight: 600;
+      line-height: 1.65;
+    }
+
+    .dev-speech-bubble p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Assinatura Visual em Grande Destaque */
+    .dev-signature-box {
+      margin-top: 28px;
+      padding: 24px 20px;
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      color: #ffffff;
+      border: 3px solid #38bdf8;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.25);
+      position: relative;
+      overflow: hidden;
+      animation: signatureReveal 1.1s ease-out forwards;
+    }
+
+    .dev-signature-box::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+      animation: shineSweep 4.5s infinite ease-in-out;
+    }
+
+    @keyframes signatureReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes shineSweep {
+      0%, 40% { left: -100%; }
+      100% { left: 160%; }
+    }
+
+    .dev-name-highlight {
+      font-family: var(--font-display);
+      font-size: clamp(1.75rem, 4.5vw, 2.85rem);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: #fde047;
+      text-shadow: 0 3px 12px rgba(253, 224, 71, 0.35);
+      margin-bottom: 4px;
+      line-height: 1.15;
+    }
+
+    .dev-role-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+      font-weight: 700;
+      color: #7dd3fc;
+      letter-spacing: 0.12em;
+      margin-bottom: 6px;
+    }
+
+    .dev-project-credit {
+      font-size: 0.98rem;
+      color: #e2e8f0;
+      font-weight: 600;
+    }
+
+    /* Toast de Notificação */
+    .toast-container {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: #1e293b;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 14px;
+      font-weight: 700;
+      box-shadow: var(--shadow-lg);
+      border-left: 5px solid #fbbf24;
+      animation: fadeSlideUp 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+  <!-- Canvas para confetes na tela final -->
+  <canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
+  <!-- Notificações flutuantes -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- ========================================================================
+       CABEÇALHO SUPERIOR FIXO
+       ======================================================================== -->
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">🧮</div>
+      <div>
+        <div class="brand-title font-display">Matemática em Ação</div>
+        <div class="brand-subtitle">Aprender, Observar e Superar</div>
+      </div>
+    </div>
+
+    <div class="topbar-actions">
+      <button type="button" class="btn btn-outline btn-sm" id="btnShowTheory" title="Conhecer a Teoria de Albert Bandura e as Regras">
+        🧠 Como Funciona
+      </button>
+      <button type="button" class="btn btn-outline btn-sm" id="btnToggleSound" title="Ativar ou silenciar sons">
+        🔊 Som: ON
+      </button>
+      <button type="button" class="btn btn-outline btn-sm" id="btnHome" style="display: none;">
+        🏠 Início
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ======================================================================
+         TELA 1: INÍCIO E CONFIGURAÇÃO DE MODO DE JOGO
+         ====================================================================== -->
+    <section id="screenHome" class="screen active">
+      <div class="hero-card">
+        <span class="hero-badge">✨ Aprendizagem Social de Albert Bandura + 27 Desafios</span>
+        <h1 class="hero-title">Matemática em Ação:<br />Aprender, Observar e Superar</h1>
+        <p class="hero-desc">
+          Embarque em uma jornada interativa por 3 territórios matemáticos! Observe como os mentores resolvem os desafios, compreenda cada passo lógico e supere missões do nível Básico ao Avançado.
+        </p>
+
+        <!-- Os 4 Processos da Aprendizagem Observacional -->
+        <div class="bandura-grid">
+          <div class="bandura-step">
+            <div class="bandura-step-header">
+              <span class="bandura-num" style="background: #2563eb;">1</span>
+              <span>Atenção</span>
+            </div>
+            <p style="font-size: 0.88rem; color: #475569;">
+              Observe a <strong>Prof.ª Clara</strong> ou o <strong>Robô-Max</strong> resolvendo um exemplo modelo na lousa.
+            </p>
+          </div>
+          <div class="bandura-step">
+            <div class="bandura-step-header">
+              <span class="bandura-num" style="background: #7c3aed;">2</span>
+              <span>Retenção</span>
+            </div>
+            <p style="font-size: 0.88rem; color: #475569;">
+              Acompanhe passo a passo a estratégia usada para guardar o raciocínio na memória.
+            </p>
+          </div>
+          <div class="bandura-step">
+            <div class="bandura-step-header">
+              <span class="bandura-num" style="background: #f59e0b;">3</span>
+              <span>Reprodução</span>
+            </div>
+            <p style="font-size: 0.88rem; color: #475569;">
+              Aplique o que aprendeu para resolver um novo desafio matemático no tabuleiro!
+            </p>
+          </div>
+          <div class="bandura-step">
+            <div class="bandura-step-header">
+              <span class="bandura-num" style="background: #10b981;">4</span>
+              <span>Motivação</span>
+            </div>
+            <p style="font-size: 0.88rem; color: #475569;">
+              Ganhe pontos de XP, estrelas, avance casas especiais e desbloqueie conquistas!
+            </p>
+          </div>
+        </div>
+
+        <h2 style="font-size: 1.4rem; color: #1e293b; margin-top: 10px;">Escolha o Modo de Jogo</h2>
+        <div class="modes-grid" id="modeSelector">
+          <div class="mode-card selected" data-mode="individual">
+            <span class="mode-icon">🧑‍🎓</span>
+            <h3>Modo Individual</h3>
+            <p style="font-size: 0.9rem; color: #64748b; margin-top: 6px;">
+              Aventure-se no seu ritmo, acumule XP e conquiste todas as medalhas do tabuleiro!
+            </p>
+          </div>
+          <div class="mode-card" data-mode="teams">
+            <span class="mode-icon">🤝</span>
+            <h3>Modo Equipes</h3>
+            <p style="font-size: 0.9rem; color: #64748b; margin-top: 6px;">
+              <strong>Equipe Azul</strong> vs <strong>Equipe Laranja</strong>! Ideal para salas de aula e gincanas.
+            </p>
+          </div>
+          <div class="mode-card" data-mode="family">
+            <span class="mode-icon">👨‍👩‍👧‍👦</span>
+            <h3>Modo Família</h3>
+            <p style="font-size: 0.9rem; color: #64748b; margin-top: 6px;">
+              De 2 a 4 participantes jogando juntos em casa (crianças, pais e avós)!
+            </p>
+          </div>
+        </div>
+
+        <!-- Configuração dos Participantes -->
+        <div class="setup-panel" id="playerSetupPanel"></div>
+
+        <div style="margin-top: 24px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+          <button type="button" class="btn btn-success btn-lg" id="btnStartGame">
+            🚀 Começar Aventura Matemática
+          </button>
+          <button type="button" class="btn btn-primary btn-lg" id="btnContinueSaved" style="display: none;">
+            💾 Continuar Partida Salva
+          </button>
+        </div>
+
+        <div style="margin-top: 16px;">
+          <button type="button" class="btn btn-outline btn-sm" id="btnDemoEnding" title="Visualizar a tela final e a homenagem do desenvolvedor">
+            🎓 Ver Tela Final &amp; Homenagem do Desenvolvedor
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TELA 2: TABULEIRO INTERATIVO E PAINEL DE CONTROLE
+         ====================================================================== -->
+    <section id="screenBoard" class="screen">
+      <div class="game-layout">
+        <!-- Coluna Esquerda: Tabuleiro com 27 Casas -->
+        <div class="board-wrapper">
+          <div class="zones-legend">
+            <div>
+              <h2 style="font-size: 1.3rem; color: #1e3a8a;">🗺️ Trilha do Conhecimento (27 Desafios)</h2>
+              <p style="font-size: 0.85rem; color: #64748b;">Clique em qualquer casa para revisar ou lance o dado para avançar!</p>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px;">
+              <span class="zone-pill zone-basic">🌱 1-9 Básico</span>
+              <span class="zone-pill zone-inter">⛰️ 10-18 Intermediário</span>
+              <span class="zone-pill zone-adv">🏰 19-27 Avançado</span>
+            </div>
+          </div>
+
+          <div class="board-grid" id="boardGrid"></div>
+        </div>
+
+        <!-- Coluna Direita: Dado, Turno, Placar e Conquistas -->
+        <aside class="sidebar">
+          <div class="panel-card">
+            <div class="turn-banner" id="turnBanner">
+              <div style="font-size: 0.8rem; opacity: 0.9; font-weight: 700;">VEZ DE JOGAR</div>
+              <div id="currentPlayerDisplay" style="font-size: 1.35rem; font-family: var(--font-display); font-weight: 700;">
+                🚀 Jogador 1
+              </div>
+              <div id="currentTileDisplay" style="font-size: 0.85rem; margin-top: 2px;">
+                Posição: Largada (Casa 0 de 27)
+              </div>
+            </div>
+
+            <div class="dice-area">
+              <div class="dice-box" id="diceBox" aria-live="polite">🎲</div>
+              <button type="button" class="btn btn-secondary" id="btnRollDice" style="width: 100%;">
+                🎲 Jogar Dado (Avançar 1 a 3 casas)
+              </button>
+              <button type="button" class="btn btn-primary btn-sm" id="btnOpenCurrentChallenge" style="width: 100%;">
+                📘 Abrir Desafio da Casa Atual
+              </button>
+            </div>
+          </div>
+
+          <!-- Placar -->
+          <div class="panel-card">
+            <h3 style="font-size: 1.1rem; color: #1e293b; margin-bottom: 10px;">🏆 Placar &amp; Progresso</h3>
+            <div class="scoreboard-list" id="scoreboardList"></div>
+          </div>
+
+          <!-- Conquistas -->
+          <div class="panel-card">
+            <h3 style="font-size: 1.1rem; color: #1e293b;">🏅 Conquistas</h3>
+            <div class="achievements-grid" id="achievementsGrid"></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TELA 3: ENCERRAMENTO & HOMENAGEM ESPECIAL DO DESENVOLVEDOR
+         ====================================================================== -->
+    <section id="screenFinal" class="screen">
+      <div class="final-screen-card">
+        <div style="text-align: center;">
+          <span class="hero-badge" style="background: #dcfce7; color: #166534; border-color: #86efac;">
+            🎉 MISSÃO CONCLUÍDA COM SUCESSO!
+          </span>
+          <h1 class="hero-title" style="margin-top: 6px;">Parabéns pela Jornada Matemática!</h1>
+          <p style="color: #475569; font-weight: 700; max-width: 680px; margin: 0 auto;">
+            Vocês observaram, compreenderam, aplicaram estratégias e superaram os desafios do Matemática em Ação!
+          </p>
+        </div>
+
+        <!-- Pódio / Resumo da Partida -->
+        <div class="podium-grid" id="finalPodiumGrid"></div>
+
+        <!-- HOMENAGEM ESPECIAL DO DESENVOLVEDOR ELIAS PRATA DE SOUZA -->
+        <div class="dev-tribute-section">
+          <div class="dev-tribute-layout">
+            <!-- Personagem Cartoon Ilustrado do Desenvolvedor -->
+            <div class="dev-character-wrap">
+              <svg width="220" height="240" viewBox="0 0 220 240" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Ilustração cartoon do desenvolvedor Elias Prata de Souza sorrindo e acenando">
+                <!-- Fundo circular suave -->
+                <circle cx="110" cy="122" r="96" fill="#DBEAFE" stroke="#60A5FA" stroke-width="4" />
+                <circle cx="110" cy="122" r="82" fill="#EFF6FF" />
+
+                <!-- Braço esquerdo acenando (animado) -->
+                <g class="dev-wave-arm">
+                  <path d="M152 152 C175 135, 186 112, 180 94" stroke="#2563EB" stroke-width="18" stroke-linecap="round" />
+                  <!-- Mão acenando -->
+                  <circle cx="180" cy="88" r="12" fill="#FDBA74" />
+                  <path d="M174 82 L171 73 M180 80 L180 70 M186 82 L189 73" stroke="#FDBA74" stroke-width="4" stroke-linecap="round" />
+                </g>
+
+                <!-- Tronco / Camisa de Tecnologia -->
+                <path d="M62 214 C62 172, 82 152, 110 152 C138 152, 158 172, 158 214 Z" fill="#2563EB" />
+                <!-- Gola da camisa -->
+                <path d="M94 153 L110 172 L126 153 Z" fill="#FFFFFF" />
+                <!-- Crachá / Detalhe TI -->
+                <rect x="122" y="176" width="22" height="14" rx="4" fill="#93C5FD" />
+                <circle cx="128" cy="183" r="2.5" fill="#1E3A8A" />
+
+                <!-- Braço direito segurando notebook -->
+                <path d="M68 156 C52 174, 58 194, 82 196" stroke="#1D4ED8" stroke-width="17" stroke-linecap="round" />
+                <circle cx="84" cy="196" r="10" fill="#FDBA74" />
+
+                <!-- Notebook ilustrado -->
+                <rect x="86" y="174" width="54" height="34" rx="6" fill="#334155" stroke="#94A3B8" stroke-width="2.5" />
+                <circle cx="113" cy="191" r="5" fill="#38BDF8" />
+                <rect x="78" y="206" width="70" height="6" rx="3" fill="#64748B" />
+
+                <!-- Pescoço -->
+                <rect x="99" y="132" width="22" height="24" rx="8" fill="#FDBA74" />
+
+                <!-- Cabeça -->
+                <rect x="74" y="64" width="72" height="76" rx="34" fill="#FED7AA" stroke="#FDBA74" stroke-width="2" />
+
+                <!-- Orelhas -->
+                <circle cx="73" cy="104" r="8" fill="#FDBA74" />
+                <circle cx="147" cy="104" r="8" fill="#FDBA74" />
+
+                <!-- Cabelo moderno -->
+                <path d="M72 92 C70 58, 92 46, 114 48 C136 50, 150 64, 148 92 C144 74, 132 68, 110 68 C90 68, 78 75, 72 92 Z" fill="#1E293B" />
+
+                <!-- Sobrancelhas simpáticas -->
+                <path d="M87 89 Q95 85 103 89" stroke="#1E293B" stroke-width="3" stroke-linecap="round" />
+                <path d="M117 89 Q125 85 133 89" stroke="#1E293B" stroke-width="3" stroke-linecap="round" />
+
+                <!-- Óculos estilosos -->
+                <rect x="82" y="93" width="23" height="17" rx="5" fill="#FFFFFF" fill-opacity="0.35" stroke="#0F172A" stroke-width="3" />
+                <rect x="115" y="93" width="23" height="17" rx="5" fill="#FFFFFF" fill-opacity="0.35" stroke="#0F172A" stroke-width="3" />
+                <line x1="105" y1="101" x2="115" y2="101" stroke="#0F172A" stroke-width="3" />
+
+                <!-- Olhos brilhantes -->
+                <circle cx="94" cy="101" r="3.5" fill="#0F172A" />
+                <circle cx="126" cy="101" r="3.5" fill="#0F172A" />
+                <circle cx="95" cy="100" r="1.2" fill="#FFFFFF" />
+                <circle cx="127" cy="100" r="1.2" fill="#FFFFFF" />
+
+                <!-- Sorriso acolhedor -->
+                <path d="M96 118 Q110 131 124 118" stroke="#9A3412" stroke-width="3.5" stroke-linecap="round" fill="#FFFFFF" />
+
+                <!-- Ícones flutuantes de código e matemática -->
+                <text x="30" y="72" fill="#2563EB" font-family="monospace" font-weight="bold" font-size="16">&lt;/&gt;</text>
+                <text x="176" y="56" fill="#7C3AED" font-family="sans-serif" font-weight="bold" font-size="18">π</text>
+                <text x="26" y="145" fill="#10B981" font-family="monospace" font-weight="bold" font-size="15">{ }</text>
+              </svg>
+              <span style="background: #2563eb; color: #fff; font-size: 0.78rem; font-weight: 800; padding: 4px 12px; border-radius: 999px; margin-top: 6px;">
+                💬 Mensagem do Desenvolvedor
+              </span>
+            </div>
+
+            <!-- Mensagem Exacta Solicitada -->
+            <div class="dev-speech-bubble">
+              <p>“Olá, criançada! Parabéns por chegarem até aqui e concluírem o Matemática em Ação!</p>
+              <p>Espero que vocês tenham aprendido bastante e descoberto que a matemática pode ser muito mais interessante do que parece.</p>
+              <p>Mas quero deixar uma ideia para vocês: já imaginaram como os jogos, aplicativos e sites que usamos todos os dias são criados?</p>
+              <p>Isso é programação! É uma maneira de transformar ideias em soluções, criar tecnologias e construir coisas que podem ajudar muitas pessoas.</p>
+              <p>Por isso, continuem estudando, fazendo perguntas, explorando a tecnologia e não desistindo quando algo parecer difícil.</p>
+              <p>Quem sabe alguns de vocês serão os próximos programadores do amanhã? O futuro também pode ser criado por vocês!</p>
+              <p>Um grande abraço e parabéns pela conquista!”</p>
+            </div>
+          </div>
+
+          <!-- Assinatura Visual em Grande Destaque -->
+          <div class="dev-signature-box">
+            <div class="dev-name-highlight">ELIAS PRATA DE SOUZA</div>
+            <div class="dev-role-title">GESTOR DE TI</div>
+            <div class="dev-project-credit">Criador e desenvolvedor do Matemática em Ação.</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+          <button type="button" class="btn btn-primary btn-lg" id="btnPlayAgain">
+            🔄 Jogar Novamente
+          </button>
+          <button type="button" class="btn btn-outline btn-lg" id="btnBackToBoardFromFinal">
+            🗺️ Voltar ao Tabuleiro
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       MODAL INTERATIVO DO DESAFIO (4 ETAPAS DE ALBERT BANDURA)
+       ======================================================================== -->
+  <div class="modal-overlay" id="challengeModal">
+    <div class="challenge-modal" role="dialog" aria-modal="true" aria-labelledby="modalChallengeTitle">
+      <div class="challenge-header">
+        <div>
+          <div id="modalChallengeMeta" style="font-size: 0.8rem; opacity: 0.9; font-weight: 700;">
+            CASA 1 • NÍVEL BÁSICO
+          </div>
+          <h3 id="modalChallengeTitle" style="font-size: 1.25rem;">Título do Desafio</h3>
+        </div>
+        <button type="button" class="btn btn-sm" id="btnCloseChallengeModal" style="background: rgba(255,255,255,0.2); color: #fff;">
+          ✖ Fechar
+        </button>
+      </div>
+
+      <!-- Indicador visual dos 4 processos de Albert Bandura -->
+      <div class="bandura-stepper">
+        <div class="step-tab active" id="tabStep1">1. 👁️ Atenção</div>
+        <div class="step-tab" id="tabStep2">2. 🧠 Retenção</div>
+        <div class="step-tab" id="tabStep3">3. ✍️ Reprodução</div>
+        <div class="step-tab" id="tabStep4">4. 🌟 Motivação</div>
+      </div>
+
+      <div class="challenge-body" id="challengeModalBody"></div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL EXPLICATIVO: TEORIA DE BANDURA E REGRAS
+       ======================================================================== -->
+  <div class="modal-overlay" id="theoryModal">
+    <div class="challenge-modal" style="max-width: 660px;">
+      <div class="challenge-header">
+        <h3 style="font-size: 1.25rem;">🧠 Teoria de Albert Bandura &amp; Regras</h3>
+        <button type="button" class="btn btn-sm" id="btnCloseTheoryModal" style="background: rgba(255,255,255,0.2); color: #fff;">
+          ✖ Fechar
+        </button>
+      </div>
+      <div class="challenge-body">
+        <p style="margin-bottom: 12px; font-weight: 600;">
+          O jogo <strong>Matemática em Ação</strong> foi estruturado nos quatro processos da <strong>Teoria da Aprendizagem Social de Albert Bandura</strong>:
+        </p>
+        <ul style="padding-left: 20px; display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px;">
+          <li><strong>1. Atenção:</strong> Antes de responder, você observa um mentor resolvendo um exemplo parecido na lousa digital.</li>
+          <li><strong>2. Retenção:</strong> Você revela cada passo lógico da solução para compreender o "como" e o "porquê" da conta.</li>
+          <li><strong>3. Reprodução:</strong> Agora é sua vez! Você aplica a mesma estratégia observada em um novo desafio do tabuleiro.</li>
+          <li><strong>4. Motivação:</strong> Cada conquista gera feedback educativo imediato, pontos de XP, bônus de casas especiais e medalhas!</li>
+        </ul>
+        <div style="background: #eff6ff; padding: 14px; border-radius: 12px; border: 2px solid #bfdbfe;">
+          <strong>Casas Especiais do Tabuleiro:</strong><br />
+          ⭐ <strong>Estrela Bônus:</strong> +50 XP extras ao acertar!<br />
+          ⚡ <strong>Desafio Relâmpago:</strong> Pontuação em dobro!<br />
+          🚀 <strong>Atalho do Saber:</strong> Avança +1 casa extra ao acertar!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ==========================================================================
+       SCRIPT.JS — BANCO DE 27 DESAFIOS, ÁUDIO SINTETIZADO E LÓGICA DO JOGO
+       Matemática em Ação: Aprender, Observar e Superar
+       ========================================================================== */
+
+    // --------------------------------------------------------------------------
+    // 1. SINTETIZADOR DE EFEITOS SONOROS (WEB AUDIO API - SEM ARQUIVOS EXTERNOS)
+    // --------------------------------------------------------------------------
+    const SoundFX = (() => {
+      let ctx = null;
+      let enabled = true;
+
+      function ensureContext() {
+        if (!ctx && (window.AudioContext || window.webkitAudioContext)) {
+          ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (ctx && ctx.state === 'suspended') {
+          ctx.resume();
+        }
+      }
+
+      function playTone(freq, type = 'sine', duration = 0.18, delay = 0, gainVal = 0.14) {
+        if (!enabled) return;
+        try {
+          ensureContext();
+          if (!ctx) return;
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, ctx.currentTime + delay);
+          gain.gain.setValueAtTime(gainVal, ctx.currentTime + delay);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + duration);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + delay);
+          osc.stop(ctx.currentTime + delay + duration);
+        } catch (e) {
+          // Silencia caso o navegador bloqueie áudio antes de interação
+        }
+      }
+
+      return {
+        toggle() {
+          enabled = !enabled;
+          return enabled;
+        },
+        isEnabled() {
+          return enabled;
+        },
+        click() {
+          playTone(520, 'triangle', 0.08, 0, 0.1);
+        },
+        dice() {
+          [320, 420, 520, 640].forEach((f, i) => playTone(f, 'square', 0.07, i * 0.06, 0.07));
+        },
+        step() {
+          playTone(660, 'sine', 0.12, 0, 0.1);
+        },
+        success() {
+          [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => playTone(f, 'triangle', 0.22, i * 0.09, 0.15));
+        },
+        error() {
+          playTone(260, 'sawtooth', 0.2, 0, 0.1);
+          playTone(210, 'sawtooth', 0.25, 0.14, 0.1);
+        },
+        victory() {
+          const notes = [523.25, 659.25, 783.99, 1046.5, 783.99, 1046.5];
+          notes.forEach((f, i) => playTone(f, 'triangle', 0.26, i * 0.12, 0.16));
+        }
+      };
+    })();
+
+    // --------------------------------------------------------------------------
+    // 2. BANCO DE DADOS COMPLETO COM 27 DESAFIOS MATEMÁTICOS PROGRESSIVOS
+    //    Cada desafio implementa: Atenção (Modelo) -> Retenção (Passos) ->
+    //    Reprodução (Problema do Jogador) -> Motivação (Explicação e XP)
+    // --------------------------------------------------------------------------
+    const CHALLENGES_DB = [
+      // ==================== NÍVEL BÁSICO (CASAS 1 A 9) ====================
+      {
+        id: 1,
+        level: 'Básico',
+        zone: 1,
+        special: 'star',
+        topic: 'Adição e Subtração',
+        title: 'A Coleção de Figurinhas',
+        mentor: 'Prof.ª Clara',
+        modelProblem: 'Lucas tinha 48 figurinhas e ganhou mais 35 de sua prima. Depois, deu 13 repetidas para um amigo. Com quantas ficou?',
+        retentionSteps: [
+          'Passo 1 (Somar o que ganhou): 48 + 35 = 83 figurinhas no total.',
+          'Passo 2 (Subtrair o que doou): 83 - 13 = 70 figurinhas.',
+          'Dica de Ouro: Resolva uma operação de cada vez na ordem em que a história acontece!'
+        ],
+        question: 'Mariana tinha 64 adesivos em seu caderno. Ela ganhou 28 novos adesivos da professora e colou 15 deles em um cartão para sua mãe. Quantos adesivos sobraram com Mariana?',
+        options: ['77 adesivos', '92 adesivos', '67 adesivos', '81 adesivos'],
+        answerIndex: 0,
+        explanation: 'Primeiro somamos os adesivos que ela ganhou: 64 + 28 = 92. Depois subtraímos os 15 que ela usou no cartão: 92 - 15 = 77 adesivos!'
+      },
+      {
+        id: 2,
+        level: 'Básico',
+        zone: 1,
+        special: null,
+        topic: 'Adição e Subtração',
+        title: 'O Desafio da Bilheteria',
+        mentor: 'Robô-Max',
+        modelProblem: 'Um ônibus escolar tem 45 lugares. Na primeira parada subiram 19 alunos e na segunda subiram 14. Quantos lugares ainda estão vazios?',
+        retentionSteps: [
+          'Passo 1 (Total de alunos): 19 + 14 = 33 alunos dentro do ônibus.',
+          'Passo 2 (Diferença para o total): 45 - 33 = 12 lugares vazios.',
+          'Dica de Ouro: Descubra primeiro o total ocupado para depois subtrair da capacidade!'
+        ],
+        question: 'Um teatro infantil possui 80 poltronas. Na sessão da tarde entraram 36 crianças e 24 adultos. Quantas poltronas ficaram livres?',
+        options: ['10 poltronas', '20 poltronas', '30 poltronas', '60 poltronas'],
+        answerIndex: 1,
+        explanation: 'Somando crianças e adultos temos 36 + 24 = 60 pessoas. Subtraindo do total de poltronas: 80 - 60 = 20 poltronas livres!'
+      },
+      {
+        id: 3,
+        level: 'Básico',
+        zone: 1,
+        special: 'bolt',
+        topic: 'Multiplicação',
+        title: 'Organizando os Livros',
+        mentor: 'Prof.ª Clara',
+        modelProblem: 'Na biblioteca há 6 prateleiras, e cada prateleira guarda 14 livros de aventura. Quantos livros há ao todo?',
+        retentionSteps: [
+          'Passo 1 (Identificar grupos iguais): São 6 grupos de 14 livros.',
+          'Passo 2 (Multiplicar decompondo): 6 × 10 = 60 e 6 × 4 = 24.',
+          'Passo 3 (Somar os resultados): 60 + 24 = 84 livros!'
+        ],
+        question: 'Para a feira de ciências, a turma montou 7 mesas expositoras, colocando 15 projetos em cada mesa. Quantos projetos foram expostos no total?',
+        options: ['95 projetos', '105 projetos', '115 projetos', '85 projetos'],
+        answerIndex: 1,
+        explanation: 'Multiplicamos 7 × 15. Decompondo: (7 × 10) + (7 × 5) = 70 + 35 = 105 projetos!'
+      },
+      {
+        id: 4,
+        level: 'Básico',
+        zone: 1,
+        special: null,
+        topic: 'Divisão Exata',
+        title: 'Dividindo os Lápis de Cor',
+        mentor: 'Robô-Max',
+        modelProblem: 'A professora quer repartir igualmente 72 lápis de cor entre 8 grupos de alunos. Quantos lápis cada grupo receberá?',
+        retentionSteps: [
+          'Passo 1 (Operação de repartir): Divisão de 72 por 8 (72 ÷ 8).',
+          'Passo 2 (Usar a tabuada inversa): Qual número vezes 8 dá 72?',
+          'Passo 3 (Resultado): Como 8 × 9 = 72, cada grupo recebe 9 lápis!'
+        ],
+        question: 'Um padeiro assou 96 pães de queijo e vai organizá-los igualmente em 8 cestas. Quantos pães de queijo ficarão em cada cesta?',
+        options: ['11 pães', '12 pães', '14 pães', '16 pães'],
+        answerIndex: 1,
+        explanation: 'Dividindo 96 por 8: 80 ÷ 8 = 10 e 16 ÷ 8 = 2. Somando 10 + 2 = 12 pães de queijo em cada cesta!'
+      },
+      {
+        id: 5,
+        level: 'Básico',
+        zone: 1,
+        special: 'shortcut',
+        topic: 'Frações Simples',
+        title: 'A Pizza Matemática',
+        mentor: 'Prof.ª Clara',
+        modelProblem: 'Uma barra de chocolate tem 12 quadradinhos. Se João comeu 1/3 da barra, quantos quadradinhos ele comeu?',
+        retentionSteps: [
+          'Passo 1 (Entender o denominador): O número de baixo (3) mostra em quantas partes iguais dividimos o total: 12 ÷ 3 = 4.',
+          'Passo 2 (Entender o numerador): O número de cima (1) indica quantas partes pegamos: 1 × 4 = 4.',
+          'Resultado: João comeu 4 quadradinhos!'
+        ],
+        question: 'Uma caixa contém 20 bombons. Sofia deu 2/5 dos bombons para sua irmã. Quantos bombons a irmã de Sofia ganhou?',
+        options: ['4 bombons', '8 bombons', '10 bombons', '12 bombons'],
+        answerIndex: 1,
+        explanation: 'Dividimos o total (20) pelo denominador (5): 20 ÷ 5 = 4 bombons por parte. Como Sofia deu 2 partes (numerador 2), fazemos 2 × 4 = 8 bombons!'
+      },
+      {
+        id: 6,
+        level: 'Básico',
+        zone: 1,
+        special: null,
+        topic: 'Frações Equivalentes',
+        title: 'Metades e Quartos',
+        mentor: 'Robô-Max',
+        modelProblem: 'Bia bebeu 1/2 litro de suco e Pedro bebeu 2/4 de litro. Quem bebeu mais suco?',
+        retentionSteps: [
+          'Passo 1 (Comparar frações): Se multiplicarmos cima e baixo de 1/2 por 2, obtemos 2/4.',
+          'Passo 2 (Conclusão): 1/2 e 2/4 representam exatamente a mesma quantidade (metade)!',
+          'Dica: Frações diferentes podem representar o mesmo valor!'
+        ],
+        question: 'Qual das frações abaixo representa exatamente a mesma quantidade que 3/4 (três quartos)?',
+        options: ['6/8', '4/5', '3/8', '2/4'],
+        answerIndex: 0,
+        explanation: 'Multiplicando o numerador e o denominador de 3/4 por 2, encontramos 6/8. Elas são frações equivalentes!'
+      },
+      {
+        id: 7,
+        level: 'Básico',
+        zone: 1,
+        special: 'star',
+        topic: 'Números Decimais',
+        title: 'Compras na Cantina',
+        mentor: 'Prof.ª Clara',
+        modelProblem: 'Um suco custa R$ 3,50 e um pão de queijo custa R$ 4,25. Quanto custam os dois juntos?',
+        retentionSteps: [
+          'Passo 1 (Alinhar a vírgula): Coloque vírgula embaixo de vírgula (3,50 + 4,25).',
+          'Passo 2 (Somar centavos e reais): 0,50 + 0,25 = 0,75 e 3 + 4 = 7.',
+          'Resultado: R$ 7,75!'
+        ],
+        question: 'Rafael comprou um caderno por R$ 12,40 e uma caneta colorida por R$ 3,35. Quanto ele gastou no total?',
+        options: ['R$ 15,75', 'R$ 15,05', 'R$ 16,75', 'R$ 14,75'],
+        answerIndex: 0,
+        explanation: 'Alinhando as vírgulas: 12,40 + 3,35. Somando os centavos (40 + 35 = 75) e os reais (12 + 3 = 15), obtemos R$ 15,75!'
+      },
+      {
+        id: 8,
+        level: 'Básico',
+        zone: 1,
+        special: null,
+        topic: 'Números Decimais',
+        title: 'Calculando o Troco',
+        mentor: 'Robô-Max',
+        modelProblem: 'Você pagou um lanche de R$ 6,50 com uma nota de R$ 10,00. Qual é o troco?',
+        retentionSteps: [
+          'Passo 1 (Escrever com vírgula): R$ 10,00 - R$ 6,50.',
+          'Passo 2 (Completar para o próximo inteiro): De 6,50 para 7,00 faltam 0,50.',
+          'Passo 3 (Completar até 10): De 7,00 para 10,00 faltam 3,00. Total: R$ 3,50!'
+        ],
+        question: 'Clara comprou um livro infantil que custava R$ 14,20 e pagou com uma cédula de R$ 20,00. Quanto ela recebeu de troco?',
+        options: ['R$ 6,80', 'R$ 5,80', 'R$ 5,20', 'R$ 6,20'],
+        answerIndex: 1,
+        explanation: 'De R$ 14,20 para R$ 15,00 faltam R$ 0,80. De R$ 15,00 para R$ 20,00 faltam R$ 5,00. Juntando: R$ 5,80 de troco!'
+      },
+      {
+        id: 9,
+        level: 'Básico',
+        zone: 1,
+        special: 'bolt',
+        topic: 'Medidas e Unidades',
+        title: 'Metros e Centímetros',
+        mentor: 'Prof.ª Clara',
+        modelProblem: 'Uma fita tem 2 metros e 40 centímetros. Quantos centímetros essa fita tem ao todo?',
+        retentionSteps: [
+          'Passo 1 (Lembrar a relação): 1 metro = 100 centímetros.',
+          'Passo 2 (Converter os metros): 2 metros = 2 × 100 = 200 cm.',
+          'Passo 3 (Somar o restante): 200 cm + 40 cm = 240 cm!'
+        ],
+        question: 'Um atleta saltou uma distância de 3 metros e 65 centímetros. Qual é essa medida expressa apenas em centímetros?',
+        options: ['365 cm', '3065 cm', '36,5 cm', '300 cm'],
+        answerIndex: 0,
+        explanation: 'Como 1 metro equivale a 100 centímetros, 3 metros valem 300 cm. Somando 65 cm, temos 365 cm!'
+      },
+
+      // ==================== NÍVEL INTERMEDIÁRIO (CASAS 10 A 18) ====================
+      {
+        id: 10,
+        level: 'Intermediário',
+        zone: 2,
+        special: 'star',
+        topic: 'Porcentagem',
+        title: 'Desconto na Loja de Esportes',
+        mentor: 'Robô-Max',
+        modelProblem: 'Uma bola custa R$ 80,00 e está com 25% de desconto. Qual é o valor do desconto?',
+        retentionSteps: [
+          'Passo 1 (Entender 25%): 25% é o mesmo que dividir por 4 (um quarto do valor).',
+          'Passo 2 (Calcular): 80 ÷ 4 = R$ 20,00 de desconto.',
+          'Dica: 50% = metade (÷2) | 25% = um quarto (÷4) | 10% = um décimo (÷10).'
+        ],
+        question: 'Uma mochila escolar custa R$ 120,00, mas hoje está com 25% de desconto. Qual será o valor do desconto em reais?',
+        options: ['R$ 25,00', 'R$ 30,00', 'R$ 40,00', 'R$ 90,00'],
+        answerIndex: 1,
+        explanation: '25% corresponde a 1/4 do valor total. Dividindo 120 por 4, encontramos R$ 30,00 de desconto!'
+      },
+      {
+        id: 11,
+        level: 'Intermediário',
+        zone: 2,
+        special: null,
+        topic: 'Porcentagem',
+        title: 'Meta de Leitura da Turma',
+        mentor: 'Prof.ª Clara',
+        modelProblem: 'Em uma escola com 200 alunos, 30% participam do clube de robótica. Quantos alunos estão no clube?',
+        retentionSteps: [
+          'Passo 1 (Achar 10%): Divida o total por 10 → 200 ÷ 10 = 20 alunos.',
+          'Passo 2 (Multiplicar para achar 30%): Como 30% é 3 × 10%, fazemos 3 × 20 = 60 alunos!',
+          'Dica: Achar 10% primeiro torna qualquer porcentagem muito fácil!'
+        ],
+        question: 'Em uma pesquisa com 300 estudantes, 40% disseram que matemática é sua matéria favorita. Quantos estudantes escolheram matemática?',
+        options: ['40 estudantes', '90 estudantes', '120 estudantes', '150 estudantes'],
+        answerIndex: 2,
+        explanation: '10% de 300 é 300 ÷ 10 = 30. Como queremos 40%, multiplicamos 30 × 4 = 120 estudantes!'
+      },
+      {
+        id: 12,
+        level: 'Intermediário',
+        zone: 2,
+        special: 'shortcut',
+        topic: 'Equação do 1º Grau',
+        title: 'Descobrindo o Número Secreto',
+        mentor: 'Robô-Max',
+        modelProblem: 'O dobro de um número somado com 5 é igual a 21 (2x + 5 = 21). Qual é esse número?',
+        retentionSteps: [
+          'Passo 1 (Isolar o termo com x): Se +5 está somando, passamos subtraindo → 2x = 21 - 5 → 2x = 16.',
+          'Passo 2 (Dividir pelo multiplicador): Se 2 está multiplicando x, dividimos → x = 16 ÷ 2.',
+          'Resultado: x = 8!'
+        ],
+        question: 'Resolva o enigma algébrico: o triplo de um número desconhecido (x) mais 4 é igual a 25 (3x + 4 = 25). Qual é o valor de x?',
+        options: ['x = 5', 'x = 7', 'x = 9', 'x = 21'],
+        answerIndex: 1,
+        explanation: 'Subtraímos 4 dos dois lados: 3x = 25 - 4 → 3x = 21. Depois dividimos por 3: x = 21 ÷ 3 = 7!'
+      },
+      {
+        id: 13,
+        level: 'Intermediário',
+        zone: 2,
+        special: null,
+        topic: 'Equação do 1º Grau',
+        title: 'A Balança Equilibrada',
+        mentor: 'Prof.ª Clara',
+        modelProblem: 'Em uma balança equilibrada, temos 4x - 6 = 18. Qual é o valor de x?',
+        retentionSteps: [
+          'Passo 1 (Operação inversa da subtração): Como temos -6, somamos 6 ao outro lado → 4x = 18 + 6 = 24.',
+          'Passo 2 (Dividir): x = 24 ÷ 4 = 6.',
+          'Conferência: 4(6) - 6 = 24 - 6 = 18. Correto!'
+        ],
+        question: 'Encontre o valor de x na equação: 5x - 10 = 35.',
+        options: ['x = 5', 'x = 7', 'x = 9', 'x = 11'],
+        answerIndex: 2,
+        explanation: 'Passamos o -10 somando: 5x = 35 + 10 → 5x = 45. Dividindo por 5: x = 45 ÷ 5 = 9!'
+      },
+      {
+        id: 14,
+        level: 'Intermediário',
+        zone: 2,
+        special: 'bolt',
+        topic: 'Razão e Proporção',
+        title: 'Receita do Bolo Gigante',
+        mentor: 'Prof.ª Clara',
+        modelProblem: 'Para fazer 12 biscoitos usamos 2 xícaras de farinha. Quantas xícaras precisamos para fazer 36 biscoitos?',
+        retentionSteps: [
+          'Passo 1 (Descobrir o fator de aumento): De 12 para 36 biscoitos, multiplicamos por 3 (36 ÷ 12 = 3).',
+          'Passo 2 (Aplicar a mesma proporção na farinha): 2 xícaras × 3 = 6 xícaras!',
+          'Dica: Na proporção, se uma grandeza triplica, a outra também triplica!'
+        ],
+        question: 'Para preparar 4 jarras de limonada, precisamos de 12 limões. Mantendo a mesma proporção, quantos limões serão necessários para preparar 10 jarras?',
+        options: ['24 limões', '30 limões', '36 limões', '40 limões'],
+        answerIndex: 1,
+        explanation: 'Cada jarra usa 12 ÷ 4 = 3 limões. Para 10 jarras, precisamos de 10 × 3 = 30 limões!'
+      },
+      {
+        id: 15,
+        level: 'Intermediário',
+        zone: 2,
+        special: null,
+        topic: 'Área e Perímetro',
+        title: 'Cercando a Horta Escolar',
+        mentor: 'Robô-Max',
+        modelProblem: 'Uma horta retangular tem 8 m de comprimento e 5 m de largura. Qual é seu perímetro e qual é sua área?',
+        retentionSteps: [
+          'Passo 1 (Perímetro = soma de todos os lados): 8 + 5 + 8 + 5 = 26 metros.',
+          'Passo 2 (Área = comprimento × largura): 8 × 5 = 40 m².',
+          'Dica: Perímetro é o contorno; Área é o espaço de dentro!'
+        ],
+        question: 'Uma quadra esportiva retangular mede 20 metros de comprimento por 12 metros de largura. Qual é a ÁREA dessa quadra?',
+        options: ['64 m²', '120 m²', '240 m²', '320 m²'],
+        answerIndex: 2,
+        explanation: 'A área de um retângulo é calculada multiplicando comprimento × largura: 20 m × 12 m = 240 m²!'
+      },
+      {
+        id: 16,
+        level: 'Intermediário',
+        zone: 2,
+        special: 'star',
+        topic: 'Potenciação',
+        title: 'O Poder dos Expoentes',
+        mentor: 'Robô-Max',
+        modelProblem: 'Quanto vale 2⁴ + 3²?',
+        retentionSteps: [
+          'Passo 1 (Calcular 2⁴): É o 2 multiplicado por ele mesmo 4 vezes → 2 × 2 × 2 × 2 = 16.',
+          'Passo 2 (Calcular 3²): É 3 × 3 = 9.',
+          'Passo 3 (Somar): 16 + 9 = 25!'
+        ],
+        question: 'Calcule o valor da expressão com potências: 5² + 2³',
+        options: ['16', '31', '33', '19'],
+        answerIndex: 2,
+        explanation: '5² = 5 × 5 = 25. E 2³ = 2 × 2 × 2 = 8. Somando os resultados: 25 + 8 = 33!'
+      },
+      {
+        id: 17,
+        level: 'Intermediário',
+        zone: 2,
+        special: null,
+        topic: 'Média Aritmética',
+        title: 'Notas do Trimestre',
+        mentor: 'Prof.ª Clara',
+        modelProblem: 'Pedro tirou as notas 7, 8 e 9 nas provas de matemática. Qual é sua média?',
+        retentionSteps: [
+          'Passo 1 (Somar todos os valores): 7 + 8 + 9 = 24.',
+          'Passo 2 (Dividir pela quantidade de notas): Como são 3 notas, fazemos 24 ÷ 3 = 8.',
+          'Dica: Média = Soma de tudo ÷ Quantidade de itens!'
+        ],
+        question: 'Em quatro partidas de basquete, uma equipe marcou 40, 50, 45 e 65 pontos. Qual foi a média de pontos por partida?',
+        options: ['45 pontos', '50 pontos', '55 pontos', '200 pontos'],
+        answerIndex: 1,
+        explanation: 'Somamos os pontos: 40 + 50 + 45 + 65 = 200. Dividimos pelas 4 partidas: 200 ÷ 4 = 50 pontos de média!'
+      },
+      {
+        id: 18,
+        level: 'Intermediário',
+        zone: 2,
+        special: 'shortcut',
+        topic: 'Revisão Intermediária',
+        title: 'Desafio da Ponte de Pedra',
+        mentor: 'Prof.ª Clara',
+        modelProblem: 'Um terreno quadrado tem perímetro de 36 metros. Qual é a área desse terreno?',
+        retentionSteps: [
+          'Passo 1 (Achar o lado do quadrado): Como os 4 lados são iguais, 36 ÷ 4 = 9 metros cada lado.',
+          'Passo 2 (Calcular a área): Lado × Lado = 9 × 9 = 81 m²!',
+          'Dica: Use o perímetro para descobrir o lado antes de calcular a área!'
+        ],
+        question: 'Uma praça em formato de quadrado possui perímetro igual a 40 metros. Qual é a área total dessa praça?',
+        options: ['80 m²', '100 m²', '160 m²', '400 m²'],
+        answerIndex: 1,
+        explanation: 'Se o perímetro do quadrado é 40 m, cada um de seus 4 lados mede 40 ÷ 4 = 10 m. A área é 10 × 10 = 100 m²!'
+      },
+
+      // ==================== NÍVEL AVANÇADO (CASAS 19 A 27) ====================
+      {
+        id: 19,
+        level: 'Avançado',
+        zone: 3,
+        special: 'star',
+        topic: 'Sistemas de Equações',
+        title: 'O Enigma das Duas Chaves',
+        mentor: 'Robô-Max',
+        modelProblem: 'A soma de dois números é 14 (x + y = 14) e a diferença entre eles é 4 (x - y = 4). Quais são esses números?',
+        retentionSteps: [
+          'Passo 1 (Método da adição): Somando as duas equações, +y e -y se cancelam! Fica 2x = 14 + 4 → 2x = 18.',
+          'Passo 2 (Achar x): x = 18 ÷ 2 = 9.',
+          'Passo 3 (Achar y): Se 9 + y = 14, então y = 5!'
+        ],
+        question: 'A soma de dois números inteiros é 20 (x + y = 20) e a diferença entre eles é 6 (x - y = 6). Quais são esses dois números?',
+        options: ['12 e 8', '13 e 7', '14 e 6', '15 e 5'],
+        answerIndex: 1,
+        explanation: 'Somando as equações: 2x = 26 → x = 13. Substituindo na primeira: 13 + y = 20 → y = 7. Conferindo: 13 - 7 = 6!'
+      },
+      {
+        id: 20,
+        level: 'Avançado',
+        zone: 3,
+        special: null,
+        topic: 'Sistemas de Equações',
+        title: 'Bicicletas e Triciclos',
+        mentor: 'Prof.ª Clara',
+        modelProblem: 'No parque há 10 veículos entre bicicletas (2 rodas) e triciclos (3 rodas), totalizando 24 rodas. Quantos triciclos há?',
+        retentionSteps: [
+          'Passo 1 (Suposição inteligente): Se todos os 10 fossem bicicletas, teríamos 10 × 2 = 20 rodas.',
+          'Passo 2 (Ver a sobra de rodas): Sobram 24 - 20 = 4 rodas extras.',
+          'Passo 3 (Distribuir): Cada triciclo tem 1 roda a mais que a bicicleta, logo há 4 triciclos (e 6 bicicletas)!'
+        ],
+        question: 'Em um estacionamento há 12 veículos entre motos (2 rodas) e carros (4 rodas), somando 38 rodas no total. Quantos CARROS estão estacionados?',
+        options: ['5 carros', '6 carros', '7 carros', '8 carros'],
+        answerIndex: 2,
+        explanation: 'Se os 12 veículos fossem motos, teríamos 12 × 2 = 24 rodas. Sobram 38 - 24 = 14 rodas. Como cada carro tem 2 rodas a mais que uma moto, temos 14 ÷ 2 = 7 carros (e 5 motos)!'
+      },
+      {
+        id: 21,
+        level: 'Avançado',
+        zone: 3,
+        special: 'bolt',
+        topic: 'Probabilidade',
+        title: 'A Urna Colorida',
+        mentor: 'Robô-Max',
+        modelProblem: 'Uma caixa tem 3 bolas azuis, 5 vermelhas e 2 verdes (total 10). Qual a probabilidade de sortear uma bola azul?',
+        retentionSteps: [
+          'Passo 1 (Casos favoráveis): Há 3 bolas azuis.',
+          'Passo 2 (Total de casos): 3 + 5 + 2 = 10 bolas no total.',
+          'Passo 3 (Fração / Porcentagem): 3/10 = 30% de chance!'
+        ],
+        question: 'Em uma sacola há 4 fichas amarelas, 6 fichas azuis e 10 fichas verdes. Sorteando uma ficha ao acaso, qual é a probabilidade de ela ser AZUL?',
+        options: ['20%', '30%', '40%', '50%'],
+        answerIndex: 1,
+        explanation: 'O total de fichas é 4 + 6 + 10 = 20. Como há 6 fichas azuis, a probabilidade é 6/20. Simplificando por 2 temos 3/10, que equivale a 30%!'
+      },
+      {
+        id: 22,
+        level: 'Avançado',
+        zone: 3,
+        special: null,
+        topic: 'Probabilidade',
+        title: 'Lançando Dois Dados',
+        mentor: 'Prof.ª Clara',
+        modelProblem: 'Ao jogar uma moeda duas vezes, qual a probabilidade de sair CARA nas duas vezes?',
+        retentionSteps: [
+          'Passo 1 (Listar todas as combinações): (Cara, Cara), (Cara, Coroa), (Coroa, Cara), (Coroa, Coroa) → 4 casos.',
+          'Passo 2 (Contar o sucesso): Apenas 1 caso tem duas caras.',
+          'Resultado: 1/4 ou 25%!'
+        ],
+        question: 'Ao lançar um dado comum de 6 faces (numerado de 1 a 6), qual é a probabilidade de sair um número maior que 4?',
+        options: ['1/6', '1/3', '1/2', '2/3'],
+        answerIndex: 1,
+        explanation: 'Os números maiores que 4 no dado são apenas o 5 e o 6 (2 possibilidades em 6). A fração 2/6 simplificada por 2 resulta em 1/3!'
+      },
+      {
+        id: 23,
+        level: 'Avançado',
+        zone: 3,
+        special: 'shortcut',
+        topic: 'Teorema de Pitágoras',
+        title: 'A Rampa do Skate',
+        mentor: 'Robô-Max',
+        modelProblem: 'Um triângulo retângulo tem catetos medindo 3 m e 4 m. Quanto mede a hipotenusa (o lado maior)?',
+        retentionSteps: [
+          'Passo 1 (Fórmula de Pitágoras): a² = b² + c².',
+          'Passo 2 (Substituir os catetos): a² = 3² + 4² → a² = 9 + 16 = 25.',
+          'Passo 3 (Tirar a raiz quadrada): √25 = 5 metros!'
+        ],
+        question: 'Uma escada está apoiada em um muro formando um triângulo retângulo. A base da escada está a 6 metros do muro e ela alcança 8 metros de altura. Qual é o comprimento da escada (hipotenusa)?',
+        options: ['10 metros', '12 metros', '14 metros', '48 metros'],
+        answerIndex: 0,
+        explanation: 'Pelo Teorema de Pitágoras: a² = 6² + 8² → a² = 36 + 64 → a² = 100. Como 10 × 10 = 100, a escada mede 10 metros!'
+      },
+      {
+        id: 24,
+        level: 'Avançado',
+        zone: 3,
+        special: null,
+        topic: 'Escalas Cartográficas',
+        title: 'Lendo o Mapa do Tesouro',
+        mentor: 'Prof.ª Clara',
+        modelProblem: 'Em um mapa com escala 1 : 50.000, cada 1 cm no papel vale 50.000 cm (500 m) na realidade. Quanto valem 4 cm no mapa?',
+        retentionSteps: [
+          'Passo 1 (Converter 50.000 cm para metros): Dividimos por 100 → 500 metros.',
+          'Passo 2 (Multiplicar pela medida do mapa): 4 × 500 m = 2.000 metros (ou 2 km)!',
+          'Dica: 100 cm = 1 m | 1.000 m = 1 km.'
+        ],
+        question: 'Na planta de uma cidade feita na escala 1 : 20.000 (1 cm no desenho = 200 metros reais), a distância entre a escola e a biblioteca é de 6 cm. Qual é a distância real entre elas?',
+        options: ['120 metros', '600 metros', '1.200 metros', '2.000 metros'],
+        answerIndex: 2,
+        explanation: 'Se 1 cm representa 200 metros reais, então 6 cm representam 6 × 200 = 1.200 metros (1,2 km)!'
+      },
+      {
+        id: 25,
+        level: 'Avançado',
+        zone: 3,
+        special: 'bolt',
+        topic: 'Expressões Numéricas',
+        title: 'A Ordem das Operações',
+        mentor: 'Robô-Max',
+        modelProblem: 'Calcule: 20 + 3 × (12 - 4) ÷ 2',
+        retentionSteps: [
+          'Passo 1 (Parênteses primeiro): (12 - 4) = 8. A conta vira 20 + 3 × 8 ÷ 2.',
+          'Passo 2 (Multiplicação e Divisão antes da Soma): 3 × 8 = 24 → 24 ÷ 2 = 12.',
+          'Passo 3 (Por último, a soma): 20 + 12 = 32!'
+        ],
+        question: 'Resolva respeitando a ordem correta das operações: 15 + 4 × (10 - 3) - 8 ÷ 2',
+        options: ['39', '129', '35', '43'],
+        answerIndex: 0,
+        explanation: '1º Parênteses: (10 - 3) = 7. 2º Multiplicação e divisão: 4 × 7 = 28 e 8 ÷ 2 = 4. 3º Soma e subtração: 15 + 28 - 4 = 39!'
+      },
+      {
+        id: 26,
+        level: 'Avançado',
+        zone: 3,
+        special: null,
+        topic: 'Problema em Várias Etapas',
+        title: 'Logística da Expedição',
+        mentor: 'Prof.ª Clara',
+        modelProblem: 'Um grupo comprou 3 pacotes com 20 garrafas de água cada. No primeiro dia beberam 25 garrafas e no segundo beberam 1/5 do total inicial. Quantas sobraram?',
+        retentionSteps: [
+          'Passo 1 (Total inicial): 3 × 20 = 60 garrafas.',
+          'Passo 2 (Consumo do 2º dia): 1/5 de 60 = 60 ÷ 5 = 12 garrafas.',
+          'Passo 3 (Subtrair tudo): 60 - 25 - 12 = 23 garrafas restantes!'
+        ],
+        question: 'Uma livraria recebeu 4 caixas com 25 livros em cada uma. Na segunda-feira vendeu 32 livros e na terça-feira vendeu 20% do estoque inicial. Quantos livros ainda restam na livraria?',
+        options: ['48 livros', '52 livros', '68 livros', '40 livros'],
+        answerIndex: 0,
+        explanation: 'Estoque inicial: 4 × 25 = 100 livros. Na segunda vendeu 32. Na terça vendeu 20% de 100 = 20 livros. Restam: 100 - 32 - 20 = 48 livros!'
+      },
+      {
+        id: 27,
+        level: 'Avançado',
+        zone: 3,
+        special: 'star',
+        topic: 'Desafio Final Mestre',
+        title: 'A Cidadela do Conhecimento',
+        mentor: 'Prof.ª Clara & Robô-Max',
+        modelProblem: 'Um robô percorre 15 m para o leste e depois 20 m para o norte. Qual a distância em linha reta do início ao fim, somada a 10% de 150?',
+        retentionSteps: [
+          'Passo 1 (Pitágoras para a distância): d² = 15² + 20² = 225 + 400 = 625 → d = 25 m.',
+          'Passo 2 (Porcentagem): 10% de 150 = 15.',
+          'Passo 3 (Soma final): 25 + 15 = 40!'
+        ],
+        question: 'Para abrir o portal final: calcule a hipotenusa de um triângulo retângulo de catetos 9 e 12, e some esse resultado com o valor de x na equação 2x + 6 = 20.',
+        options: ['22', '28', '15', '35'],
+        answerIndex: 0,
+        explanation: '1ª etapa (Pitágoras): a² = 9² + 12² = 81 + 144 = 225 → a = 15. 2ª etapa (Equação): 2x = 14 → x = 7. Soma final: 15 + 7 = 22! Parabéns!'
+      }
+    ];
+
+    // --------------------------------------------------------------------------
+    // 3. CONQUISTAS DESBLOQUEÁVEIS
+    // --------------------------------------------------------------------------
+    const ACHIEVEMENTS_LIST = [
+      { id: 'first_step', emoji: '🌱', name: 'Primeiro Passo', desc: 'Acertou o primeiro desafio!' },
+      { id: 'observer', emoji: '👁️', name: 'Bom Observador', desc: 'Completou todas as etapas de Bandura.' },
+      { id: 'streak_3', emoji: '🔥', name: 'Em Chamas (3x)', desc: 'Acertou 3 desafios seguidos!' },
+      { id: 'inter_zone', emoji: '⛰️', name: 'Escalador', desc: 'Alcançou a Montanha Intermediária (Casa 10+).' },
+      { id: 'adv_zone', emoji: '🏰', name: 'Mestre Lógico', desc: 'Chegou à Cidadela Avançada (Casa 19+).' },
+      { id: 'champion', emoji: '👑', name: 'Superação Total', desc: 'Concluiu o Matemática em Ação!' }
+    ];
+
+    const AVATAR_OPTIONS = ['🚀', '🦁', '🦊', '🐼', '🦄', '🤖', '🦉', '🐬'];
+    const PLAYER_COLORS = ['#2563eb', '#f97316', '#10b981', '#8b5cf6'];
+
+    // --------------------------------------------------------------------------
+    // 4. ESTADO GLOBAL DO JOGO E PERSISTÊNCIA (LOCALSTORAGE)
+    // --------------------------------------------------------------------------
+    const STORAGE_KEY = 'matematica_em_acao_save_v1';
+
+    let gameState = {
+      mode: 'individual',
+      players: [],
+      currentPlayerIndex: 0,
+      completedTiles: [],
+      unlockedAchievements: [],
+      streak: 0,
+      isRolling: false,
+      activeChallengeId: null,
+      retentionRevealedCount: 0,
+      challengeAnswered: false
+    };
+
+    // --------------------------------------------------------------------------
+    // 5. ELEMENTOS DOM PRINCIPAIS
+    // --------------------------------------------------------------------------
+    const screens = {
+      home: document.getElementById('screenHome'),
+      board: document.getElementById('screenBoard'),
+      final: document.getElementById('screenFinal')
+    };
+
+    function showScreen(screenName) {
+      Object.values(screens).forEach(s => s.classList.remove('active'));
+      screens[screenName].classList.add('active');
+      document.getElementById('btnHome').style.display = screenName === 'home' ? 'none' : 'inline-flex';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showToast(message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    function saveProgress() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(gameState));
+      } catch (e) {
+        // Ignora erro caso armazenamento esteja indisponível
+      }
+    }
+
+    function loadProgress() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (parsed && Array.isArray(parsed.players) && parsed.players.length > 0) {
+          return parsed;
+        }
+      } catch (e) {
+        return null;
+      }
+      return null;
+    }
+
+    function unlockAchievement(id) {
+      if (!gameState.unlockedAchievements.includes(id)) {
+        gameState.unlockedAchievements.push(id);
+        const ach = ACHIEVEMENTS_LIST.find(a => a.id === id);
+        if (ach) {
+          showToast(`🏅 Conquista Desbloqueada: ${ach.emoji} ${ach.name}!`);
+        }
+        renderAchievements();
+        saveProgress();
+      }
+    }
+
+    // --------------------------------------------------------------------------
+    // 6. CONFIGURAÇÃO DA TELA INICIAL (MODOS E PARTICIPANTES)
+    // --------------------------------------------------------------------------
+    function renderSetupPanel(mode) {
+      gameState.mode = mode;
+      const panel = document.getElementById('playerSetupPanel');
+
+      if (mode === 'individual') {
+        panel.innerHTML = `
+          <h4 style="margin-bottom: 8px; color: #1e3a8a;">🧑‍🎓 Configurar Jogador Individual</h4>
+          <div class="players-inputs">
+            <div class="player-input-box">
+              <label style="font-size: 0.82rem; font-weight: 800;">Seu Nome ou Apelido:</label>
+              <input type="text" id="pName0" value="Explorador(a)" maxlength="18" />
+              <label style="font-size: 0.82rem; font-weight: 800;">Escolha seu Avatar:</label>
+              <select id="pAvatar0">
+                ${AVATAR_OPTIONS.map((a, i) => `<option value="${a}" ${i === 0 ? 'selected' : ''}>${a} Avatar ${i + 1}</option>`).join('')}
+              </select>
+            </div>
+          </div>
+        `;
+      } else if (mode === 'teams') {
+        panel.innerHTML = `
+          <h4 style="margin-bottom: 8px; color: #1e3a8a;">🤝 Configurar Equipes</h4>
+          <div class="players-inputs">
+            <div class="player-input-box" style="border-color: #3b82f6;">
+              <label style="font-size: 0.82rem; font-weight: 800; color: #1d4ed8;">Nome da Equipe 1:</label>
+              <input type="text" id="pName0" value="Equipe Azul" maxlength="18" />
+              <select id="pAvatar0">
+                <option value="🔵" selected>🔵 Escudo Azul</option>
+                <option value="🚀">🚀 Foguete Azul</option>
+                <option value="🐬">🐬 Golfinhos</option>
+              </select>
+            </div>
+            <div class="player-input-box" style="border-color: #f97316;">
+              <label style="font-size: 0.82rem; font-weight: 800; color: #c2410c;">Nome da Equipe 2:</label>
+              <input type="text" id="pName1" value="Equipe Laranja" maxlength="18" />
+              <select id="pAvatar1">
+                <option value="🟠" selected>🟠 Escudo Laranja</option>
+                <option value="🦁">🦁 Leões</option>
+                <option value="🦊">🦊 Raposas</option>
+              </select>
+            </div>
+          </div>
+        `;
+      } else if (mode === 'family') {
+        panel.innerHTML = `
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+            <h4 style="color: #1e3a8a;">👨‍👩‍👧‍👦 Configurar Participantes da Família</h4>
+            <div>
+              <label style="font-size: 0.85rem; font-weight: 800;">Quantidade: </label>
+              <select id="familyCountSelect" style="padding: 6px 10px; border-radius: 8px; border: 2px solid #94a3b8; font-weight: 700;">
+                <option value="2" selected>2 Jogadores</option>
+                <option value="3">3 Jogadores</option>
+                <option value="4">4 Jogadores</option>
+              </select>
+            </div>
+          </div>
+          <div class="players-inputs" id="familyInputsContainer"></div>
+        `;
+        const renderFamilyInputs = (count) => {
+          const defaults = ['Filho(a)', 'Mãe / Pai', 'Avô / Avó', 'Irmão(ã)'];
+          const container = document.getElementById('familyInputsContainer');
+          container.innerHTML = '';
+          for (let i = 0; i < count; i++) {
+            container.innerHTML += `
+              <div class="player-input-box" style="border-color: ${PLAYER_COLORS[i]};">
+                <label style="font-size: 0.8rem; font-weight: 800;">Participante ${i + 1}:</label>
+                <input type="text" id="pName${i}" value="${defaults[i]}" maxlength="16" />
+                <select id="pAvatar${i}">
+                  ${AVATAR_OPTIONS.map((a, idx) => `<option value="${a}" ${idx === i ? 'selected' : ''}>${a} Avatar</option>`).join('')}
+                </select>
+              </div>
+            `;
+          }
+        };
+        renderFamilyInputs(2);
+        document.getElementById('familyCountSelect').addEventListener('change', (e) => {
+          renderFamilyInputs(Number(e.target.value));
+        });
+      }
+    }
+
+    // Eventos dos cards de modo
+    document.querySelectorAll('.mode-card').forEach(card => {
+      card.addEventListener('click', () => {
+        SoundFX.click();
+        document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        renderSetupPanel(card.dataset.mode);
+      });
+    });
+
+    function startNewGame() {
+      SoundFX.click();
+      const players = [];
+      let count = 1;
+      if (gameState.mode === 'teams') count = 2;
+      if (gameState.mode === 'family') {
+        const sel = document.getElementById('familyCountSelect');
+        count = sel ? Number(sel.value) : 2;
+      }
+
+      for (let i = 0; i < count; i++) {
+        const nameEl = document.getElementById(`pName${i}`);
+        const avatarEl = document.getElementById(`pAvatar${i}`);
+        players.push({
+          id: i,
+          name: (nameEl && nameEl.value.trim()) || `Jogador ${i + 1}`,
+          avatar: (avatarEl && avatarEl.value) || AVATAR_OPTIONS[i],
+          color: PLAYER_COLORS[i],
+          position: 0, // 0 = Largada, 1..27 = Casas dos desafios
+          score: 0,
+          solved: 0
+        });
+      }
+
+      gameState = {
+        mode: gameState.mode,
+        players,
+        currentPlayerIndex: 0,
+        completedTiles: [],
+        unlockedAchievements: [],
+        streak: 0,
+        isRolling: false,
+        activeChallengeId: null,
+        retentionRevealedCount: 0,
+        challengeAnswered: false
+      };
+
+      saveProgress();
+      renderBoard();
+      updateSidebar();
+      showScreen('board');
+      showToast('🎲 Clique em "Jogar Dado" para iniciar sua jornada!');
+    }
+
+    // --------------------------------------------------------------------------
+    // 7. RENDERIZAÇÃO DO TABULEIRO E SIDEBAR
+    // --------------------------------------------------------------------------
+    function getSpecialBadge(special) {
+      if (special === 'star') return '<span class="tile-special-badge" title="Casa Estrela (+50 XP Bônus)">⭐</span>';
+      if (special === 'bolt') return '<span class="tile-special-badge" title="Desafio Relâmpago (Pontos em Dobro)">⚡</span>';
+      if (special === 'shortcut') return '<span class="tile-special-badge" title="Atalho do Saber (+1 Casa ao acertar)">🚀</span>';
+      return '';
+    }
+
+    function renderBoard() {
+      const grid = document.getElementById('boardGrid');
+      grid.innerHTML = '';
+
+      // Casa 0: Largada
+      const startTile = document.createElement('div');
+      startTile.className = 'tile tile-start';
+      startTile.innerHTML = `
+        <div class="tile-header"><span>INÍCIO</span><span>🏁</span></div>
+        <div class="tile-topic">Largada</div>
+        <div class="tile-pawns" id="pawns-tile-0"></div>
+      `;
+      grid.appendChild(startTile);
+
+      // Casas 1 a 27
+      const currentPlayer = gameState.players[gameState.currentPlayerIndex];
+      CHALLENGES_DB.forEach((ch) => {
+        const tile = document.createElement('div');
+        const isCurrent = currentPlayer && currentPlayer.position === ch.id;
+        const isDone = gameState.completedTiles.includes(ch.id);
+
+        tile.className = `tile zone-${ch.zone} ${isCurrent ? 'active-tile' : ''}`;
+        tile.innerHTML = `
+          <div class="tile-header">
+            <span class="tile-num">${ch.id} ${isDone ? '✅' : ''}</span>
+            ${getSpecialBadge(ch.special)}
+          </div>
+          <div class="tile-topic">${ch.topic}</div>
+          <div class="tile-pawns" id="pawns-tile-${ch.id}"></div>
+        `;
+        tile.addEventListener('click', () => {
+          SoundFX.click();
+          openChallengeModal(ch.id);
+        });
+        grid.appendChild(tile);
+      });
+
+      // Casa 28: Chegada / Portal Final
+      const finishTile = document.createElement('div');
+      finishTile.className = 'tile tile-finish';
+      finishTile.innerHTML = `
+        <div class="tile-header"><span>FIM</span><span>🏆</span></div>
+        <div class="tile-topic">Portal da Superação</div>
+        <div class="tile-pawns" id="pawns-tile-28"></div>
+      `;
+      finishTile.addEventListener('click', () => triggerFinalScreen());
+      grid.appendChild(finishTile);
+
+      // Posicionar peões dos jogadores
+      gameState.players.forEach((p) => {
+        const pos = Math.min(28, Math.max(0, p.position));
+        const holder = document.getElementById(`pawns-tile-${pos}`);
+        if (holder) {
+          const pawn = document.createElement('div');
+          pawn.className = 'pawn';
+          pawn.style.background = p.color;
+          pawn.title = `${p.name} (Casa ${p.position})`;
+          pawn.textContent = p.avatar;
+          holder.appendChild(pawn);
+        }
+      });
+    }
+
+    function updateSidebar() {
+      const current = gameState.players[gameState.currentPlayerIndex];
+      if (!current) return;
+
+      document.getElementById('currentPlayerDisplay').textContent = `${current.avatar} ${current.name}`;
+      document.getElementById('currentTileDisplay').textContent =
+        current.position === 0
+          ? 'Posição: Largada (Jogue o dado!)'
+          : `Posição: Casa ${current.position} de 27`;
+
+      const openBtn = document.getElementById('btnOpenCurrentChallenge');
+      if (current.position >= 1 && current.position <= 27) {
+        openBtn.style.display = 'inline-flex';
+        openBtn.textContent = `📘 Resolver Desafio da Casa ${current.position}`;
+      } else {
+        openBtn.style.display = 'none';
+      }
+
+      // Atualizar Placar
+      const sb = document.getElementById('scoreboardList');
+      sb.innerHTML = '';
+      gameState.players.forEach((p, idx) => {
+        const isTurn = idx === gameState.currentPlayerIndex;
+        sb.innerHTML += `
+          <div class="score-item ${isTurn ? 'current-turn' : ''}">
+            <div class="score-player-info">
+              <div class="score-avatar" style="background: ${p.color};">${p.avatar}</div>
+              <div>
+                <div style="font-weight: 800; font-size: 0.95rem;">${p.name}</div>
+                <div style="font-size: 0.78rem; color: #64748b; font-weight: 700;">
+                  Casa ${p.position}/27 • ${p.solved} acertos
+                </div>
+              </div>
+            </div>
+            <div style="font-family: var(--font-display); font-weight: 700; color: #2563eb; font-size: 1.05rem;">
+              ${p.score} XP
+            </div>
+          </div>
+        `;
+      });
+
+      renderAchievements();
+    }
+
+    function renderAchievements() {
+      const grid = document.getElementById('achievementsGrid');
+      grid.innerHTML = '';
+      ACHIEVEMENTS_LIST.forEach((ach) => {
+        const unlocked = gameState.unlockedAchievements.includes(ach.id);
+        grid.innerHTML += `
+          <div class="badge-item ${unlocked ? 'unlocked' : ''}" title="${ach.desc}">
+            <span class="badge-emoji">${ach.emoji}</span>
+            <div class="badge-name">${ach.name}</div>
+          </div>
+        `;
+      });
+    }
+
+    // --------------------------------------------------------------------------
+    // 8. MOVIMENTAÇÃO COM DADO ANIMADO
+    // --------------------------------------------------------------------------
+    function rollDiceAndMove() {
+      if (gameState.isRolling) return;
+      gameState.isRolling = true;
+
+      const diceBox = document.getElementById('diceBox');
+      const rollBtn = document.getElementById('btnRollDice');
+      rollBtn.disabled = true;
+      diceBox.classList.add('rolling');
+      SoundFX.dice();
+
+      // Avança entre 1 e 3 casas para permitir percorrer bem os níveis
+      const roll = Math.floor(Math.random() * 3) + 1;
+
+      setTimeout(() => {
+        diceBox.classList.remove('rolling');
+        diceBox.textContent = roll;
+
+        const player = gameState.players[gameState.currentPlayerIndex];
+        let stepsLeft = roll;
+
+        const stepInterval = setInterval(() => {
+          if (stepsLeft > 0 && player.position < 28) {
+            player.position += 1;
+            stepsLeft -= 1;
+            SoundFX.step();
+            renderBoard();
+            updateSidebar();
+          } else {
+            clearInterval(stepInterval);
+            gameState.isRolling = false;
+            rollBtn.disabled = false;
+
+            if (player.position >= 10) unlockAchievement('inter_zone');
+            if (player.position >= 19) unlockAchievement('adv_zone');
+
+            saveProgress();
+
+            if (player.position >= 28) {
+              triggerFinalScreen();
+            } else {
+              openChallengeModal(player.position);
+            }
+          }
+        }, 260);
+      }, 560);
+    }
+
+    // --------------------------------------------------------------------------
+    // 9. MODAL DE DESAFIO — OS 4 PROCESSOS DE ALBERT BANDURA EM AÇÃO
+    // --------------------------------------------------------------------------
+    function getMentorSVG(mentorName) {
+      const isRobot = mentorName.includes('Robô');
+      if (isRobot) {
+        return `
+          <svg class="mentor-avatar" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="15" y="20" width="60" height="52" rx="16" fill="#3B82F6" stroke="#1D4ED8" stroke-width="3"/>
+            <line x1="45" y1="6" x2="45" y2="20" stroke="#1D4ED8" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="45" cy="6" r="5" fill="#F59E0B"/>
+            <rect x="24" y="32" width="42" height="20" rx="8" fill="#0F172A"/>
+            <circle cx="35" cy="42" r="4" fill="#38BDF8"/>
+            <circle cx="55" cy="42" r="4" fill="#38BDF8"/>
+            <path d="M35 60 Q45 66 55 60" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        `;
+      }
+      return `
+        <svg class="mentor-avatar" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="45" cy="45" r="41" fill="#FEF3C7" stroke="#F59E0B" stroke-width="3"/>
+          <path d="M22 44 C22 20, 68 20, 68 44" fill="#7C2D12"/>
+          <circle cx="45" cy="46" r="21" fill="#FED7AA"/>
+          <circle cx="38" cy="44" r="3" fill="#1E293B"/>
+          <circle cx="52" cy="44" r="3" fill="#1E293B"/>
+          <path d="M38 54 Q45 61 52 54" stroke="#9A3412" stroke-width="3" stroke-linecap="round"/>
+          <path d="M24 80 C26 66, 64 66, 66 80" fill="#10B981"/>
+        </svg>
+      `;
+    }
+
+    function updateBanduraTabs(activeStep) {
+      for (let i = 1; i <= 4; i++) {
+        const tab = document.getElementById(`tabStep${i}`);
+        tab.classList.remove('active', 'completed');
+        if (i < activeStep) tab.classList.add('completed');
+        if (i === activeStep) tab.classList.add('active');
+      }
+    }
+
+    function openChallengeModal(challengeId) {
+      const challenge = CHALLENGES_DB.find(c => c.id === challengeId);
+      if (!challenge) return;
+
+      gameState.activeChallengeId = challengeId;
+      gameState.retentionRevealedCount = 1;
+      gameState.challengeAnswered = false;
+
+      document.getElementById('modalChallengeMeta').textContent =
+        `CASA ${challenge.id} DE 27 • NÍVEL ${challenge.level.toUpperCase()} • ${challenge.topic.toUpperCase()}`;
+      document.getElementById('modalChallengeTitle').textContent = challenge.title;
+
+      renderChallengeContent(challenge);
+      document.getElementById('challengeModal').classList.add('open');
+    }
+
+    function renderChallengeContent(ch) {
+      const body = document.getElementById('challengeModalBody');
+      const totalSteps = ch.retentionSteps.length;
+      const allRetentionDone = gameState.retentionRevealedCount >= totalSteps;
+
+      if (!gameState.challengeAnswered) {
+        updateBanduraTabs(allRetentionDone ? 3 : 2);
+      } else {
+        updateBanduraTabs(4);
+      }
+
+      let specialTag = '';
+      if (ch.special === 'star') specialTag = '<span class="zone-pill zone-inter">⭐ Casa Estrela (+50 XP Bônus)</span>';
+      if (ch.special === 'bolt') specialTag = '<span class="zone-pill zone-adv">⚡ Desafio Relâmpago (2x Pontos)</span>';
+      if (ch.special === 'shortcut') specialTag = '<span class="zone-pill zone-basic">🚀 Atalho do Saber (+1 Casa ao acertar)</span>';
+
+      body.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+          <span style="font-size: 0.85rem; font-weight: 800; color: #2563eb;">
+            Etapa 1 &amp; 2 (Bandura): Observe o exemplo do mentor e revele os passos!
+          </span>
+          ${specialTag}
+        </div>
+
+        <!-- ETAPA 1: ATENÇÃO (Observação do Modelo) -->
+        <div class="mentor-box">
+          ${getMentorSVG(ch.mentor)}
+          <div>
+            <div style="font-family: var(--font-display); font-weight: 700; color: #166534; font-size: 1.05rem;">
+              👁️ Atenção — Exemplo de ${ch.mentor}
+            </div>
+            <p style="font-size: 0.95rem; color: #1e293b; font-weight: 600; margin-top: 4px;">
+              “Observe como eu resolvo este problema parecido antes de você fazer o seu:”
+            </p>
+            <div style="background: #ffffff; padding: 10px 12px; border-radius: 10px; border: 2px solid #bbf7d0; margin-top: 8px; font-weight: 700;">
+              ${ch.modelProblem}
+            </div>
+          </div>
+        </div>
+
+        <!-- ETAPA 2: RETENÇÃO (Passos Lógicos na Lousa) -->
+        <div class="chalkboard">
+          <div class="chalk-title">
+            <span>🧠 Retenção — Passo a Passo da Estratégia (${gameState.retentionRevealedCount}/${totalSteps})</span>
+          </div>
+          ${ch.retentionSteps.slice(0, gameState.retentionRevealedCount).map(st => `
+            <div class="retention-step-card">${st}</div>
+          `).join('')}
+
+          ${!allRetentionDone ? `
+            <button type="button" class="btn btn-secondary btn-sm" id="btnNextRetentionStep" style="margin-top: 14px;">
+              👉 Revelar Próximo Passo (${gameState.retentionRevealedCount + 1}/${totalSteps})
+            </button>
+          ` : `
+            <div style="margin-top: 12px; color: #86efac; font-weight: 800; font-size: 0.9rem;">
+              ✅ Todos os passos observados! Agora aplique essa estratégia abaixo:
+            </div>
+          `}
+        </div>
+
+        <!-- ETAPA 3: REPRODUÇÃO (Desafio do Jogador) -->
+        <div id="reproductionSection" style="opacity: ${allRetentionDone ? '1' : '0.55'}; transition: opacity 0.3s ease;">
+          <div style="font-family: var(--font-display); font-weight: 700; color: #1d4ed8; font-size: 1.1rem; margin-bottom: 6px;">
+            ✍️ Reprodução — Sua Vez de Resolver!
+          </div>
+          <p style="font-size: 1.05rem; font-weight: 700; color: #0f172a; background: #eff6ff; padding: 14px; border-radius: 12px; border: 2px solid #bfdbfe;">
+            ${ch.question}
+          </p>
+
+          <div class="options-grid" id="optionsContainer">
+            ${ch.options.map((opt, idx) => {
+              const letters = ['A', 'B', 'C', 'D'];
+              return `
+                <button type="button" class="option-btn" data-idx="${idx}" ${!allRetentionDone ? 'disabled' : ''}>
+                  <span class="option-letter">${letters[idx]}</span>
+                  <span>${opt}</span>
+                </button>
+              `;
+            }).join('')}
+          </div>
+        </div>
+
+        <!-- ETAPA 4: MOTIVAÇÃO (Feedback Imediato e Recompensa) -->
+        <div id="motivationFeedbackArea"></div>
+      `;
+
+      const nextStepBtn = document.getElementById('btnNextRetentionStep');
+      if (nextStepBtn) {
+        nextStepBtn.addEventListener('click', () => {
+          SoundFX.click();
+          gameState.retentionRevealedCount += 1;
+          if (gameState.retentionRevealedCount >= totalSteps) {
+            unlockAchievement('observer');
+          }
+          renderChallengeContent(ch);
+        });
+      }
+
+      document.querySelectorAll('.option-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (gameState.challengeAnswered) return;
+          handleChallengeAnswer(ch, Number(btn.dataset.idx));
+        });
+      });
+    }
+
+    function handleChallengeAnswer(ch, selectedIndex) {
+      gameState.challengeAnswered = true;
+      updateBanduraTabs(4);
+
+      const isCorrect = selectedIndex === ch.answerIndex;
+      const player = gameState.players[gameState.currentPlayerIndex];
+
+      document.querySelectorAll('.option-btn').forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === ch.answerIndex) btn.classList.add('correct');
+        if (idx === selectedIndex && !isCorrect) btn.classList.add('wrong');
+      });
+
+      const feedbackArea = document.getElementById('motivationFeedbackArea');
+
+      if (isCorrect) {
+        SoundFX.success();
+        let earnedXP = ch.zone * 100;
+        if (ch.special === 'bolt') earnedXP *= 2;
+        if (ch.special === 'star') earnedXP += 50;
+
+        player.score += earnedXP;
+        player.solved += 1;
+        gameState.streak += 1;
+
+        if (!gameState.completedTiles.includes(ch.id)) {
+          gameState.completedTiles.push(ch.id);
+        }
+
+        unlockAchievement('first_step');
+        if (gameState.streak >= 3) unlockAchievement('streak_3');
+
+        let bonusText = '';
+        if (ch.special === 'shortcut' && player.position < 28) {
+          player.position += 1;
+          bonusText = ' 🚀 Bônus Atalho do Saber: você avançou +1 casa extra!';
+        }
+
+        feedbackArea.innerHTML = `
+          <div class="feedback-panel success">
+            <h4 style="font-size: 1.15rem; margin-bottom: 6px;">🌟 Excelente! Você observou e aplicou a estratégia com sucesso! (+${earnedXP} XP)</h4>
+            <p style="font-weight: 600;">${ch.explanation}${bonusText}</p>
+            <div style="margin-top: 14px;">
+              <button type="button" class="btn btn-success" id="btnFinishTurnAfterAnswer">
+                ${player.position >= 27 ? '🏆 Concluir Jornada e Ver Homenagem!' : '➡️ Continuar Partida'}
+              </button>
+            </div>
+          </div>
+        `;
+      } else {
+        SoundFX.error();
+        gameState.streak = 0;
+        feedbackArea.innerHTML = `
+          <div class="feedback-panel error">
+            <h4 style="font-size: 1.15rem; margin-bottom: 6px;">💡 Quase lá! Errar também faz parte do aprendizado!</h4>
+            <p style="font-weight: 600;"><strong>Como resolver:</strong> ${ch.explanation}</p>
+            <div style="margin-top: 14px; display: flex; gap: 10px; flex-wrap: wrap;">
+              <button type="button" class="btn btn-secondary" id="btnRetryChallenge">
+                🔄 Tentar Novamente
+              </button>
+              <button type="button" class="btn btn-outline" id="btnFinishTurnAfterAnswer">
+                ➡️ Passar Turno
+              </button>
+            </div>
+          </div>
+        `;
+
+        const retryBtn = document.getElementById('btnRetryChallenge');
+        if (retryBtn) {
+          retryBtn.addEventListener('click', () => {
+            SoundFX.click();
+            gameState.challengeAnswered = false;
+            renderChallengeContent(ch);
+          });
+        }
+      }
+
+      document.getElementById('btnFinishTurnAfterAnswer').addEventListener('click', () => {
+        SoundFX.click();
+        document.getElementById('challengeModal').classList.remove('open');
+
+        // Verifica se chegou ao final do tabuleiro (Casa 27 ou 28)
+        if (player.position >= 27 && isCorrect) {
+          player.position = 28;
+          renderBoard();
+          updateSidebar();
+          triggerFinalScreen();
+          return;
+        }
+
+        // Alterna para o próximo jogador (nos modos Equipes e Família)
+        if (gameState.players.length > 1) {
+          gameState.currentPlayerIndex = (gameState.currentPlayerIndex + 1) % gameState.players.length;
+        }
+
+        saveProgress();
+        renderBoard();
+        updateSidebar();
+      });
+
+      saveProgress();
+      renderBoard();
+      updateSidebar();
+    }
+
+    // --------------------------------------------------------------------------
+    // 10. TELA FINAL ESPECIAL E CONFETES ANIMADOS
+    // --------------------------------------------------------------------------
+    function triggerFinalScreen() {
+      unlockAchievement('champion');
+      SoundFX.victory();
+
+      // Caso o usuário tenha aberto a tela final pelo botão de demonstração sem iniciar partida
+      const playersToShow = gameState.players.length > 0
+        ? [...gameState.players].sort((a, b) => b.score - a.score)
+        : [{ name: 'Explorador(a) Matemático', avatar: '🚀', score: 1500, solved: 27, color: '#2563eb' }];
+
+      const podium = document.getElementById('finalPodiumGrid');
+      podium.innerHTML = '';
+      playersToShow.forEach((p, idx) => {
+        podium.innerHTML += `
+          <div class="podium-card ${idx === 0 ? 'winner' : ''}">
+            <div style="font-size: 2rem;">${idx === 0 ? '🥇' : idx === 1 ? '🥈' : '🥉'} ${p.avatar}</div>
+            <div style="font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; margin-top: 4px;">
+              ${p.name}
+            </div>
+            <div style="font-weight: 800; color: #1d4ed8; font-size: 1.1rem; margin-top: 4px;">
+              ${p.score} XP
+            </div>
+            <div style="font-size: 0.82rem; color: #475569; font-weight: 700;">
+              ${p.solved} desafios superados
+            </div>
+          </div>
+        `;
+      });
+
+      showScreen('final');
+      launchConfetti();
+    }
+
+    function launchConfetti() {
+      const canvas = document.getElementById('confettiCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const colors = ['#2563eb', '#f59e0b', '#10b981', '#ec4899', '#8b5cf6', '#ef4444'];
+      const pieces = Array.from({ length: 110 }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height - canvas.height,
+        w: Math.random() * 10 + 6,
+        h: Math.random() * 6 + 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        vy: Math.random() * 3 + 2,
+        vx: Math.random() * 2 - 1,
+        angle: Math.random() * 360
+      }));
+
+      let frames = 0;
+      function animateConfetti() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          p.y += p.vy;
+          p.x += p.vx;
+          p.angle += 4;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.angle * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          ctx.restore();
+        });
+        frames += 1;
+        if (frames < 220) {
+          requestAnimationFrame(animateConfetti);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+      }
+      animateConfetti();
+    }
+
+    // --------------------------------------------------------------------------
+    // 11. EVENTOS GLOBAIS E INICIALIZAÇÃO
+    // --------------------------------------------------------------------------
+    document.getElementById('btnStartGame').addEventListener('click', startNewGame);
+
+    document.getElementById('btnContinueSaved').addEventListener('click', () => {
+      SoundFX.click();
+      const saved = loadProgress();
+      if (saved) {
+        gameState = saved;
+        renderBoard();
+        updateSidebar();
+        showScreen('board');
+        showToast('💾 Partida salva carregada com sucesso!');
+      }
+    });
+
+    document.getElementById('btnDemoEnding').addEventListener('click', () => {
+      SoundFX.click();
+      triggerFinalScreen();
+    });
+
+    document.getElementById('btnRollDice').addEventListener('click', rollDiceAndMove);
+
+    document.getElementById('btnOpenCurrentChallenge').addEventListener('click', () => {
+      SoundFX.click();
+      const current = gameState.players[gameState.currentPlayerIndex];
+      if (current && current.position >= 1 && current.position <= 27) {
+        openChallengeModal(current.position);
+      }
+    });
+
+    document.getElementById('btnCloseChallengeModal').addEventListener('click', () => {
+      SoundFX.click();
+      document.getElementById('challengeModal').classList.remove('open');
+    });
+
+    document.getElementById('btnShowTheory').addEventListener('click', () => {
+      SoundFX.click();
+      document.getElementById('theoryModal').classList.add('open');
+    });
+
+    document.getElementById('btnCloseTheoryModal').addEventListener('click', () => {
+      SoundFX.click();
+      document.getElementById('theoryModal').classList.remove('open');
+    });
+
+    document.getElementById('btnToggleSound').addEventListener('click', (e) => {
+      const isOn = SoundFX.toggle();
+      e.target.textContent = isOn ? '🔊 Som: ON' : '🔇 Som: OFF';
+      if (isOn) SoundFX.click();
+    });
+
+    document.getElementById('btnHome').addEventListener('click', () => {
+      SoundFX.click();
+      checkSavedButton();
+      showScreen('home');
+    });
+
+    document.getElementById('btnPlayAgain').addEventListener('click', () => {
+      SoundFX.click();
+      localStorage.removeItem(STORAGE_KEY);
+      checkSavedButton();
+      showScreen('home');
+    });
+
+    document.getElementById('btnBackToBoardFromFinal').addEventListener('click', () => {
+      SoundFX.click();
+      if (gameState.players.length === 0) {
+        startNewGame();
+      } else {
+        showScreen('board');
+      }
+    });
+
+    function checkSavedButton() {
+      const saved = loadProgress();
+      document.getElementById('btnContinueSaved').style.display = saved ? 'inline-flex' : 'none';
+    }
+
+    window.addEventListener('resize', () => {
+      const canvas = document.getElementById('confettiCanvas');
+      if (canvas) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+    });
+
+    // Inicialização ao carregar a página
+    window.onload = function () {
+      renderSetupPanel('individual');
+      checkSavedButton();
+    };
+  </script>
+</body>
+</html>
